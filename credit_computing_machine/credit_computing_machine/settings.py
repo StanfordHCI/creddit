@@ -39,9 +39,9 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-WEB_APPS = []
+WEB_APPS = ['app']
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = ['rest_framework',]
 
 INSTALLED_APPS = DJANGO_APPS + WEB_APPS + THIRD_PARTY_APPS
 
