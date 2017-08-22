@@ -13,7 +13,8 @@ def privateurl_view(request, action, token):
         # fail or expired
         raise Http404
     elif dict_private_urls_view(action):
-        return current_datetime(request,token)
+        view = dict_private_urls_view(action)
+        return view(request,token)
         # sucess case
     if not ok:
         raise Http404

@@ -5,7 +5,7 @@ from rest_framework import generics, status
 from django.contrib.auth import authenticate
 from .serializers import CreditGroupCreateSerializer
 from .serializers import CreditUserCreateSerializer
-
+from privateurl.models import PrivateUrl
 from rest_framework.response import Response
 
 

@@ -1,7 +1,8 @@
 from django.db import models
 from credit_computing_machine.models import TimestampModel
-
-
+from privateurl.models import PrivateUrl
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 # Create your models here.
 
 class CreditGroupManager(models.Manager):
@@ -19,14 +20,26 @@ class CreditGroupManager(models.Manager):
 class CreditGroup(TimestampModel):
     name = models.CharField(max_length=200)
     is_deleted = models.BooleanField(default=False)
+    privateurl = models.ForeignKey(PrivateUrl,null=True)
     objects = CreditGroupManager()
 
+
+@receiver(pre_save, sender=CreditGroup, dispatch_uid="add_group_purl")
+def add_group_purl(sender, instance, **kwargs):
+     purl = PrivateUrl.create('manage_credit_score')
+     instance.privateurl= purl
 
 class CreditUser(TimestampModel):
     name = models.CharField(max_length=200)
     email = models.EmailField()
     credit_group = models.ForeignKey(CreditGroup, null=True, blank=True)
     is_admin = models.BooleanField(default=False)
+    privateurl = models.ForeignKey(PrivateUrl, null=True)
+
+@receiver(pre_save, sender=CreditUser, dispatch_uid="add_user_purl")
+def add_user_purl(sender, instance, **kwargs):
+     purl = PrivateUrl.create('user_credit')
+     instance.privateurl= purl
 
 
 class CreditScore(TimestampModel):

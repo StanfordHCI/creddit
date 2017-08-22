@@ -15,6 +15,7 @@ class CreditGroupCreateSerializer(serializers.ModelSerializer):
         '''
         model = CreditGroup
         fields = '__all__'
+        read_only_fields = ['privateurl']
 
 
 class CreditUserCreateSerializer(serializers.ModelSerializer):
