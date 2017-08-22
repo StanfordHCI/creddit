@@ -39,7 +39,7 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-WEB_APPS = ['app']
+WEB_APPS = ['app','privateurl']
 
 THIRD_PARTY_APPS = ['rest_framework',]
 

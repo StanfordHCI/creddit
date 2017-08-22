@@ -7,13 +7,11 @@ def privateurl_view(request, action, token):
     obj = PrivateUrl.objects.get_or_none(action, token)
     ok = False
     if not obj or not obj.is_available():
-        results = privateurl_fail.send(
-            PrivateUrl, request=request, obj=obj, action=action)
+        # fail or expired
+        pass
     else:
-        results = privateurl_ok.send(
-            PrivateUrl, request=request, obj=obj, action=action)
-        obj.hit_counter_inc()
-        ok = True
+        pass
+        # sucess case
     for receiver, result in results:
         if isinstance(result, dict):
             if 'response' in result:
@@ -21,3 +19,4 @@ def privateurl_view(request, action, token):
     if not ok:
         raise Http404
     return HttpResponseRedirect('/')
+
