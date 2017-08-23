@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import CreditGroup
 from .models import CreditUser
 from .models import CreditScore
-
+from .utility import Utility
 
 class CreditGroupCreateSerializer(serializers.ModelSerializer):
     '''
@@ -98,10 +98,11 @@ class CreditGroupUpdateSerializer(serializers.ModelSerializer):
         credit_users = validated_data.pop('credit_users')
         instance.name = validated_data['name']
         instance.save()
-        # for credit_user in credit_users:
-        #     pass
-        #     name = credit_user.get('name')
-        #     ToDO save and update credit_users according to emails ; as emails cannot be changed
+        credit_group_serializer_data = CreditUserUpdateSerializer(data=credit_users, many=True)
+        if credit_group_serializer_data.is_valid():
+            for item in credit_users:
+                item['credit_group'] = instance.id
+            result = Utility.save_and_update_data(CreditUserUpdateSerializer,credit_users,CreditUser,['email','credit_group'])
         return instance
 
 

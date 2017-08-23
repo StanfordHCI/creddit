@@ -37,8 +37,6 @@ class CreditGroupCreateApi(generics.CreateAPIView):
                         for internal_index, internal_user_id in enumerate(user_ids):
                             if user_id != internal_user_id:
                                 CreditScore.objects.create(from_credit_user_id= user_id,to_credit_user_id =internal_user_id,credit_group= credit_group ,score = 0)
-                    import pdb
-                    pdb.set_trace()
             else:
                 pass
                 #return credit_user_serializer_data.errors
