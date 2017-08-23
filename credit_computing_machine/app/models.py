@@ -5,7 +5,7 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 # Create your models here.
 
-class CreditGroupManager(models.Manager):
+class CreditManager(models.Manager):
 
     def get_credit_all_user(self, credit_group_id):
         return CreditUser.objects.filter(credit_group=credit_group_id)
@@ -21,15 +21,16 @@ class CreditGroup(TimestampModel):
     name = models.CharField(max_length=200)
     is_deleted = models.BooleanField(default=False)
     privateurl = models.ForeignKey(PrivateUrl,null=True)
-    objects = CreditGroupManager()
+    objects = CreditManager()
 
     def __str__(self):
         return self.name
 
 @receiver(pre_save, sender=CreditGroup, dispatch_uid="add_group_purl")
 def add_group_purl(sender, instance, **kwargs):
-     purl = PrivateUrl.create('manage_credit_score')
-     instance.privateurl= purl
+    if not instance.privateurl:
+        purl = PrivateUrl.create('manage_credit_score')
+        instance.privateurl= purl
 
 class CreditUser(TimestampModel):
     name = models.CharField(max_length=200)
@@ -37,14 +38,17 @@ class CreditUser(TimestampModel):
     credit_group = models.ForeignKey(CreditGroup, null=True, blank=True, related_name='credit_users')
     is_admin = models.BooleanField(default=False)
     privateurl = models.ForeignKey(PrivateUrl, null=True)
+    objects = CreditManager()
+
 
     def __str__(self):
         return '%s from %s'%(self.name,self.credit_group)
 
 @receiver(pre_save, sender=CreditUser, dispatch_uid="add_user_purl")
 def add_user_purl(sender, instance, **kwargs):
-     purl = PrivateUrl.create('user_credit')
-     instance.privateurl= purl
+    if not instance.privateurl:
+        purl = PrivateUrl.create('user_credit')
+        instance.privateurl= purl
 
 
 class CreditScore(TimestampModel):
@@ -54,6 +58,7 @@ class CreditScore(TimestampModel):
     to_credit_user = models.ForeignKey(
         CreditUser, related_name='to_credit_user')
     credit_group = models.ForeignKey(CreditGroup)
+    objects = CreditManager()
 
     def __str__(self):
         return '%s to %s from %s'%(self.from_credit_user,self.to_credit_user,self.credit_group)

@@ -29,6 +29,8 @@ class CreditUserCreateSerializer(serializers.ModelSerializer):
         '''
         model = CreditUser
         fields = '__all__'
+
+
 class CreditUserSerializer(serializers.ModelSerializer):
     '''
     Serializer for CreditUser Create.
@@ -40,6 +42,7 @@ class CreditUserSerializer(serializers.ModelSerializer):
         '''
         model = CreditUser
         fields = '__all__'
+
 
 class CreditGroupSerializer(serializers.ModelSerializer):
     '''
@@ -54,6 +57,7 @@ class CreditGroupSerializer(serializers.ModelSerializer):
         model = CreditGroup
         fields = ('id', 'name', 'credit_users')
 
+
 class CreditScoreSerializer(serializers.ModelSerializer):
     '''
     Serializer for CreditUser Create.
@@ -65,3 +69,37 @@ class CreditScoreSerializer(serializers.ModelSerializer):
         '''
         model = CreditScore
         fields = '__all__'
+
+class CreditUserUpdateSerializer(serializers.ModelSerializer):
+    '''
+    Serializer for CreditUser Create.
+    '''
+
+    class Meta:
+        '''
+        Serializer customization
+        '''
+        model = CreditUser
+        fields = ('name','email')
+
+class CreditGroupUpdateSerializer(serializers.ModelSerializer):
+    '''
+    Serializer for CreditGroup Create.
+    '''
+    credit_users = CreditUserUpdateSerializer(many=True)
+    class Meta:
+        '''
+        Serializer customization
+        '''
+        model = CreditGroup
+        fields = ('name','credit_users')
+
+    def update(self, instance, validated_data):
+        credit_users = validated_data.pop('credit_users')
+        instance.name = validated_data['name']
+        CreditUser.objects.get_credit_non_admin_user(instance.credit_group.id).delete()
+        for credit_user in credit_users:
+            pass
+            # name = credit_user.get('name')
+            # ToDO save and update credit_users according to emails ; as emails cannot be changed
+        return instance
