@@ -97,9 +97,27 @@ class CreditGroupUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         credit_users = validated_data.pop('credit_users')
         instance.name = validated_data['name']
-        CreditUser.objects.get_credit_non_admin_user(instance.credit_group.id).delete()
-        for credit_user in credit_users:
-            pass
-            # name = credit_user.get('name')
-            # ToDO save and update credit_users according to emails ; as emails cannot be changed
+        instance.save()
+        # for credit_user in credit_users:
+        #     pass
+        #     name = credit_user.get('name')
+        #     ToDO save and update credit_users according to emails ; as emails cannot be changed
+        return instance
+
+
+class CreditUserScoreUpdateSerializer(serializers.ModelSerializer):
+    '''
+    Serializer for CreditGroup Create.
+    '''
+    from_credit_user = CreditScoreSerializer(many=True)
+    class Meta:
+        '''
+        Serializer customization
+        '''
+        model = CreditScore
+        fields = ('from_credit_user',)
+
+    def update(self, instance, validated_data):
+        credit_users = validated_data.pop('credit_user_scores')
+        #     ToDO save and update credit_user_scores according to emails
         return instance

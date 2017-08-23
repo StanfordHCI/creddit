@@ -59,6 +59,9 @@ class PrivateUrl(models.Model):
         verbose_name = _('private url')
         verbose_name_plural = _('private urls')
 
+    def __str__(self):
+        return '%s'%self.id
+
     def get_data(self):
         if self.data == '':
             return None

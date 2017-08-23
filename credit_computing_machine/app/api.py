@@ -4,9 +4,9 @@ from django.conf import settings
 from rest_framework import generics, status
 from django.contrib.auth import authenticate
 
-from app.models import CreditGroup
+from app.models import CreditGroup, CreditScore,CreditUser
 from .serializers import CreditGroupCreateSerializer
-from .serializers import CreditUserCreateSerializer ,CreditGroupUpdateSerializer
+from .serializers import CreditUserCreateSerializer ,CreditGroupUpdateSerializer,CreditUserScoreUpdateSerializer
 from privateurl.models import PrivateUrl
 from rest_framework.response import Response
 
@@ -51,3 +51,10 @@ class CreditGroupRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
 #     credit_group = CreditGroup.objects.filter(privateurl__id=purl_id).first()
 #     response = CreditGroupSerializer(credit_group).data
 #     return HttpResponse(str(response))
+
+
+class CreditUserScoresRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
+    serializer_class = CreditUserScoreUpdateSerializer
+
+    def get_object(self):
+        return CreditUser.objects.get(privateurl__token__exact=self.kwargs['token'])
