@@ -54,5 +54,14 @@ class CreditGroupSerializer(serializers.ModelSerializer):
         model = CreditGroup
         fields = ('id', 'name', 'credit_users')
 
+class CreditScoreSerializer(serializers.ModelSerializer):
+    '''
+    Serializer for CreditUser Create.
+    '''
 
-
+    class Meta:
+        '''
+        Serializer customization
+        '''
+        model = CreditScore
+        fields = '__all__'
