@@ -119,6 +119,9 @@ class CreditUserScoreUpdateSerializer(serializers.ModelSerializer):
         fields = ('from_credit_user',)
 
     def update(self, instance, validated_data):
-        credit_users = validated_data.pop('credit_user_scores')
-        #     ToDO save and update credit_user_scores according to emails
+        credit_scores = validated_data.pop('from_credit_user')
+        credit_score_serializer_data = CreditScoreSerializer(data=credit_scores, many=True)
+        # if credit_score_serializer_data.is_valid():
+        result = Utility.save_and_update_data(CreditScoreSerializer,credit_scores,CreditScore,['from_credit_user','to_credit_user', 'credit_group'])
+        print(result)
         return instance
