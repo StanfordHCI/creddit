@@ -1,0 +1,8 @@
+Django (1.11.4)
+django-post-office (3.0.3)
+djangorestframework (3.6.3)
+jsonfield (2.0.2)
+pip (9.0.1)
+pytz (2017.2)
+setuptools (36.2.7)
+wheel (0.29.0)

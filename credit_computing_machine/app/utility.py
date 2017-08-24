@@ -1,10 +1,23 @@
 from django.core.exceptions import ObjectDoesNotExist
-
+from .models import CreditGroup
 
 class Utility:
     '''
     Gernral Utility class for common functions
     '''
+    @staticmethod
+    def send_welcome_email_to_all_credit_group(credit_group_id):
+        Utility.send_email_to_non_admin_credit_group(credit_group_id)
+        Utility.send_email_to_admin_admin_credit_group(credit_group_id)
+
+    @staticmethod
+    def send_welcome_email_to_non_admin_credit_group(credit_group_id):
+        credit_users = CreditGroup.objects.get_credit_non_admin_user(credit_group_id)
+
+    @staticmethod
+    def send_welcome_email_to_admin_admin_credit_group(credit_group_id):
+        credit_users = CreditGroup.objects.get_credit_admin_user(credit_group_id)
+
     @staticmethod
     def get_model(data, model, db_key=None, data_key=None):
         if (db_key and data_key):

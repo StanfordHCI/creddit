@@ -136,7 +136,6 @@ class CreditUserScoreUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         credit_scores = validated_data.pop('from_credit_user')
         credit_score_serializer_data = CreditScoreSerializer(data=credit_scores, many=True)
-        # if credit_score_serializer_data.is_valid():
         result = Utility.save_and_update_data(CreditScoreUpdateSerializer,credit_scores,CreditScore,['from_credit_user','to_credit_user', 'credit_group'])
         print(result)
         return instance

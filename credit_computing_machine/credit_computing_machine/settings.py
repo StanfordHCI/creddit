@@ -41,7 +41,7 @@ DJANGO_APPS = [
 
 WEB_APPS = ['app','privateurl']
 
-THIRD_PARTY_APPS = ['rest_framework',]
+THIRD_PARTY_APPS = ['rest_framework', 'post_office']
 
 INSTALLED_APPS = DJANGO_APPS + WEB_APPS + THIRD_PARTY_APPS
 
@@ -133,3 +133,4 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny'
     ]
 }
+from .constants import *

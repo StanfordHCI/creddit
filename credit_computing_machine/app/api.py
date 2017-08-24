@@ -63,3 +63,5 @@ class CreditUserScoresRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         return CreditUser.objects.get(privateurl__token__exact=self.kwargs['token'])
+
+
