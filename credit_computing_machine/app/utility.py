@@ -37,8 +37,6 @@ class Utility:
         count_update = 0
         count_save = 0
         lst_errors = []
-        import pdb
-        pdb.set_trace()
         for data in lst_data:
             if(db_keys):
                 try:
