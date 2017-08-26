@@ -6,8 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { CreateGroupComponent } from './create-group/create-group.component';
 import { ApiService } from './shared';
 import { routing } from './app.routing';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
@@ -16,12 +19,14 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     BrowserModule,
     HttpModule,
     FormsModule,
-    routing
+    routing,
+    NgbModule.forRoot()
   ],
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent
+    AboutComponent,
+    CreateGroupComponent
   ],
   providers: [
     ApiService
