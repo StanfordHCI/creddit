@@ -1,0 +1,236 @@
+@charset "utf-8";
+.big-text,
+.bigNumberSlogon,
+.h-t .h2,
+.h-t h2 {
+    text-transform: uppercase
+}
+header {
+    padding: 50px 0
+}
+.banner {
+    background: url(../public/img/banner.jpg) center center no-repeat;
+    height: 635px
+}
+.big-text {
+    font-family: Roboto, sans-serif;
+    font-weight: 600;
+    font-size: 126px;
+    color: #fff
+}
+.bigNumber,
+.sub-text {
+    font-family: Nunito, sans-serif
+}
+.sub-text {
+    font-weight: 400;
+    font-size: 23px;
+    padding: 0 110px;
+    color: #fff
+}
+.pad-TB100 {
+    padding-top: 100px;
+    padding-bottom: 100px
+}
+.pad-T150 {
+    padding-top: 150px
+}
+.footer {
+    background: #303030;
+    float: left;
+    width: 100%;
+    position: relative;
+    padding: 120px 0
+}
+.btn-white {
+    background: #fff;
+    padding-left: 120px;
+    padding-right: 120px;
+    line-height: 70px;
+    font-size: 23px;
+    border-radius: 6px;
+    margin-top: 50px
+}
+nav ul {
+    list-style: none;
+    text-align: right
+}
+.bigNumber,
+.h-t .h2,
+.h-t h2 {
+    text-align: center;
+    text-shadow: 20px -15px rgba(0, 0, 0, .1)
+}
+nav ul li {
+    line-height: 37px
+}
+nav ul li a {
+    color: #000
+}
+.center-img {
+    width: 208px;
+    height: 208px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -104px;
+    margin: 0 auto
+}
+.h-t .h2,
+.h-t h2 {
+    font-size: 34px;
+    margin-bottom: 40px
+}
+.imageGroup {
+    width: 300px;
+    margin: 0 auto;
+    font-size: 23px;
+    color: #828282;
+    line-height: 28px
+}
+.footerTop,
+.img-box {
+    width: 100%;
+    float: left
+}
+span.f-62R {
+    font-family: roboto;
+    font-size: 62px;
+    margin-left: 35px;
+    display: block;
+    margin-top: 20px;
+    float: left;
+    color: c86060
+}
+.img-box img {
+    float: left
+}
+.img-box {
+    margin-bottom: 50px
+}
+.footerTop {
+    background: url(../public/img/bottom-bg.jpg) center center no-repeat #27a4bd;
+    padding: 100px 0 160px;
+    height: 465px
+}
+.bigNumber {
+    color: #fff;
+    font-size: 160px;
+    font-weight: 200;
+    line-height: 142px
+}
+.bigNumberSlogon,
+.f23N {
+    font-family: Nunito, sans-serif;
+    font-weight: 400;
+    text-align: center;
+    font-size: 23px
+}
+.bigNumberSlogon {
+    color: #fff
+}
+.f23N {
+    color: #828282
+}
+.pad-B215 {
+    padding-bottom: 215px
+}
+.footer p {
+    font-size: 23px;
+    line-height: 46px;
+    text-align: right;
+    color: #575757
+}
+.border-line {
+    width: 179px;
+    height: 2px;
+    background: #27a4bd;
+    margin: 2px auto
+}
+.footer img {
+    display: inline-block;
+    margin: 0;
+    line-height: 40px
+}
+@media screen and (max-width: 768px) {
+    header {
+        padding: 15px 0
+    }
+    .pad-T150 {
+        padding-top: 30px
+    }
+    .big-text {
+        font-size: 75px
+    }
+    .sub-text {
+        font-weight: 400;
+        font-size: 22px;
+        padding: 0 8px;
+        color: #fff
+    }
+    .banner,
+    .pad-TB100 {
+        padding-bottom: 30px
+    }
+    .banner {
+        height: auto
+    }
+    .pad-TB100 {
+        padding-top: 30px
+    }
+    .h-t .h2,
+    .h-t h2 {
+        font-size: 24px;
+        text-shadow: 20px -15px rgba(0, 0, 0, .1);
+        text-transform: uppercase;
+        text-align: center;
+        margin-bottom: 10px;
+        line-height: 44px
+    }
+    .border-line {
+        width: 100px
+    }
+    .imageGroup {
+        width: 220px;
+        margin: 0 auto 80px;
+        font-size: 23px;
+        color: #828282;
+        line-height: 28px
+    }
+    .img-box {
+        width: 100%;
+        margin-bottom: 15px;
+        float: left
+    }
+    .f23N {
+        font-size: 22px;
+        text-align: justify
+    }
+    .pad-B215 {
+        padding-bottom: 50px
+    }
+    .bigNumber {
+        font-size: 108px
+    }
+    .footerTop {
+        padding: 50px 0 139px;
+        height: 382px
+    }
+    .footer img {
+        display: block;
+        margin: 9px auto;
+        line-height: 100px
+    }
+    .footer p {
+        text-align: center
+    }
+}
+@media screen and (max-width: 640px) {
+    .imageGroup {
+        width: 300px;
+        margin: 0 auto 80px;
+        font-size: 23px;
+        color: #828282;
+        line-height: 28px
+    }
+}
