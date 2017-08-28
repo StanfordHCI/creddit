@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {AppSettings} from '../../app.constant';
 
 @Injectable()
-export class UserService {
+export class CreateGroupService {
   private apiUrl: string = AppSettings.API_ENDPOINT;
   private loggedIn: boolean = false;
   private loggedInData: any = {};
