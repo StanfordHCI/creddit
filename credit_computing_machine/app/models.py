@@ -18,7 +18,7 @@ class CreditManager(models.Manager):
 
 
 class CreditGroup(TimestampModel):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200,unique=True)
     is_deleted = models.BooleanField(default=False)
     privateurl = models.ForeignKey(PrivateUrl,null=True)
     objects = CreditManager()
@@ -43,6 +43,9 @@ class CreditUser(TimestampModel):
 
     def __str__(self):
         return '%s from %s'%(self.name,self.credit_group)
+
+    class Meta:
+        unique_together = ('credit_group', 'email')
 
 @receiver(pre_save, sender=CreditUser, dispatch_uid="add_user_purl")
 def add_user_purl(sender, instance, **kwargs):
