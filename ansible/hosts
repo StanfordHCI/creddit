@@ -1,0 +1,2 @@
+[servers]
+18.221.31.61 ansible_user=ubuntu ansible_ssh_private_key_file=gunu_aws.pem
