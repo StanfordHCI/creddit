@@ -72,7 +72,7 @@ class CreditGroupRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
         try:
             return CreditGroup.objects.get(privateurl__token__exact=self.kwargs['token'])
         except CreditGroup.DoesNotExist:
-            return None
+            raise CustomAPIException('Not a vaild page')
 
 class CreditUserScoresRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
     serializer_class = CreditUserScoreUpdateSerializer
@@ -81,6 +81,6 @@ class CreditUserScoresRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
         try:
             return CreditUser.objects.get(privateurl__token__exact=self.kwargs['token'])
         except CreditUser.DoesNotExist:
-            return None
+            raise CustomAPIException('Not a vaild page')
 
 

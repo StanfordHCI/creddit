@@ -7,3 +7,8 @@ EMAIL_HOST_PASSWORD = 'clasmate'
 
 FRONT_END_ROOT_URL = 'http://localhost:8080'
 EMAIL_BACKEND = 'post_office.EmailBackend'
+
+# Put this in settings.py
+POST_OFFICE = {
+    'BATCH_SIZE': 50
+}
