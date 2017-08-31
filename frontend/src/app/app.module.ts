@@ -2,25 +2,29 @@ import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { ApiService } from './shared';
+import { GroupService } from './shared/services/group.service';
 import { routing } from './app.routing';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { ModalModule } from 'ngx-bootstrap';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
     FormsModule,
     routing,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    ModalModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -29,7 +33,8 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     CreateGroupComponent
   ],
   providers: [
-    ApiService
+    ApiService,
+    GroupService
   ],
   bootstrap: [AppComponent]
 })

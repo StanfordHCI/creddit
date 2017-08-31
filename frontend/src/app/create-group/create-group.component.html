@@ -1,88 +1,96 @@
 <section class="banner">
-	<div class="container">
+  <div class="container">
     <div class="row">
-    <div class="col-sm-12l text-center pad-T150 about-banner">
-    	<div class="col-sm-8">
-        	<h1>Add team members</h1>
-            <p>Each member of the group will receive an email with
-a private link for giving out credits.</p>
+      <div class="col-sm-12l text-center pad-T150 about-banner">
+        <div class="col-sm-8">
+          <h1>Add team members</h1>
+          <p>Each member of the group will receive an email with a private link for giving out credits.</p>
         </div>
         <div class="col-sm-4 about-img"><img src="../img/about-icon.png" alt="about" title=""></div>
+      </div>
     </div>
-    </div>
-    </div>
-
-
+  </div>
 </section>
-
-
-
-
-
 <section class="article">
-<div class="container">
-<div class="col-md-12 group">
-<div class="groupname"><input name="" type="text" placeholder="Group name" class="input">
-<h4>Group administrator:</h4>
-</div>
-<div class="col-md-12">
-<div class="col-md-6"><input name="" type="text" placeholder="Group name" class="input"></div>
-<div class="col-md-6"><input name="" type="text" placeholder="Group name" class="input"></div>
-</div>
-</div>
-<div class="col-md-12 add-group">
-<p>Add group members. Once completed, they will each be emailed a private URL to enter their scores.</p>
-
-
-</div>
-
-<div class="col-md-12 inputgroup">
-<div class="col-md-2">
-<div class="input-circle"></div>
-</div>
-<div class="col-md-4 pdl0"><input name="" type="text" placeholder="Group name" class="inputsearch"></div>
-<div class="col-md-4 pdr0"><input name="" type="text" placeholder="Group name" class="inputsearch"></div>
-<div class="col-md-2 delimg">
-<img src="../img/cancle.png">
-</div>
-
-
-</div>
-
-<div class="col-md-12 inputgroup">
-<div class="col-md-2">
-<div class="input-circle1"></div>
-</div>
-<div class="col-md-4 pdl0"><input name="" type="text" placeholder="Group name" class="inputsearch"></div>
-<div class="col-md-4 pdr0"><input name="" type="text" placeholder="Group name" class="inputsearch"></div>
-<div class="col-md-2 delimg">
-<img src="../img/cancle.png">
-</div>
-
-
-</div>
-
-<div class="col-md-12 inputgroup">
-<div class="col-md-2">
-<div class="input-circle2"></div>
-</div>
-<div class="col-md-4 pdl0"><input name="" type="text" placeholder="Group name" class="inputsearch"></div>
-<div class="col-md-4 pdr0"><input name="" type="text" placeholder="Group name" class="inputsearch"></div>
-<div class="col-md-2 delimg">
-<img src="../img/cancle.png">
-</div>
-
-
-</div>
-
-<div class="col-md-12 pdnone">
-<div class="col-md-6 pdl0">
-<a href="#" class="btnadd"><img src="../img/add.png"> Add another member</a>
-</div>
-<div class="col-md-6 pdr0"><a href="#" class="btnadd"> <img src="../img/success.png">  Finish</a></div>
-</div>
-
-</div>
-
+  <form #groupAddForm="ngForm" (ngSubmit)="openModal(template)">
+    <div class="container">
+      <div class="col-md-12 group">
+        <div class="groupname">
+          <input required [(ngModel)]="groupData.name"
+            name="groupName"
+            type="text" placeholder="Group name"
+            class="input">
+          <h4>Group administrator:</h4>
+        </div>
+        <div class="col-md-12" *ngFor="let creditAdmin of groupData.credit_admin; let i = index">
+          <div class="col-md-6">
+            <input required [(ngModel)]="creditAdmin.name" name="creditAdminName-{{i}}" type="text" placeholder="Name" class="input">
+          </div>
+          <div class="col-md-6">
+            <input required [(ngModel)]="creditAdmin.email" name="creditAdminEmail-{{i}}" type="email" placeholder="Email" class="input">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 add-group">
+        <p>Add group members. Once completed, they will each be emailed a private URL to enter their scores.</p>
+      </div>
+      <div class="col-md-12 inputgroup" *ngFor="let creditUser of groupData.credit_users; let i = index">
+        <div class="col-md-2">
+          <div class="input-circle"></div>
+        </div>
+        <div class="col-md-4 pdl0">
+          <input required [(ngModel)]="creditUser.name"
+                name="name-{{i}}" type="text" placeholder="Name" class="inputsearch">
+        </div>
+        <div class="col-md-4 pdr0">
+          <input
+            required [(ngModel)]="creditUser.email"
+            name="email-{{i}}" type="email" placeholder="Email" class="inputsearch">
+        </div>
+        <div class="col-md-2 delimg">
+          <a (click)="removeUser(i)">
+            <img src="../img/cancle.png">
+          </a>
+        </div>
+      </div>
+      <div class="col-md-12 pdnone">
+        <div class="col-md-6 pdl0">
+          <a (click)="addMoreUser()" class="btnadd">
+            <img src="../img/add.png"> Add another member
+          </a>
+        </div>
+        <div class="col-md-6 pdr0">
+          <button [disabled]="groupAddForm.invalid" type="submit" class="btnadd" style="border: 0">
+            <img src="../img/success.png">  Finish
+          </button>
+          <!--<a class="btnadd" >-->
+            <!--<img src="../img/success.png">  Finish-->
+          <!--</a>-->
+        </div>
+      </div>
+    </div>
+  </form>
 </section>
 <div class="clr"></div>
+<template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Select Settings</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="display: flex;">
+    <div class="col-md-12 pdnone">
+      <div class="col-md-6 pdl0">
+        <a (click)="createGroup(1)" class="btnadd">
+          Send to Admin
+        </a>
+      </div>
+      <div class="col-md-6 pdr0">
+        <a (click)="createGroup(0)" class="btnadd">
+          Send to All
+        </a>
+      </div>
+    </div>
+  </div>
+</template>
