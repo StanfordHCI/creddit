@@ -35,6 +35,7 @@ def add_group_purl(sender, instance, **kwargs):
 class CreditUser(TimestampModel):
     name = models.CharField(max_length=200)
     email = models.EmailField()
+    score = models.FloatField(default=0)
     credit_group = models.ForeignKey(CreditGroup, null=True, blank=True, related_name='credit_users')
     is_admin = models.BooleanField(default=False)
     privateurl = models.ForeignKey(PrivateUrl, null=True)
