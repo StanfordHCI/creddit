@@ -127,12 +127,13 @@ class CreditUserScoreUpdateSerializer(serializers.ModelSerializer):
     Serializer for CreditGroup Create.
     '''
     from_credit_user = CreditScoreSerializer(many=True)
+    group_name = serializers.CharField(source='credit_group.name',read_only=True)
     class Meta:
         '''
         Serializer customization
         '''
         model = CreditScore
-        fields = ('from_credit_user',)
+        fields = ('from_credit_user','group_name')
 
     def update(self, instance, validated_data):
         credit_scores = validated_data.pop('from_credit_user')
