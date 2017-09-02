@@ -55,7 +55,7 @@ class CreditGroupCreateApi(generics.CreateAPIView):
 
                     email_service.send_invite_email_to_all_credit_group(credit_group.id)
 
-                    response = {'msg': 'Group created'}
+                    response = {'msg': 'Group created','token':credit_group.privateurl.token}
                 else:
                     raise CustomAPIException(credit_user_serializer_data.errors)
             else:
