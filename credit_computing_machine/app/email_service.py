@@ -34,3 +34,11 @@ def send_invite_email_to_non_admin_credit_group(credit_group_id):
 
 def send_email_to_admin_credit_group(credit_group_id):
     credit_users = CreditGroup.objects.get_credit_admin_user(credit_group_id)
+    for credit_user in credit_users:
+        to_email, from_email, = credit_user.email, FROM_EMAIL
+        template = 'manage_group_email'
+        call_to_action = settings.FRONT_END_ROOT_URL + '/give_scores/' + '?token=' + credit_user.privateurl.token
+        dict_context = {'name': credit_user.name,
+                        'call_to_action': call_to_action
+                        }
+        send_email(to_email, from_email, template, dict_context)

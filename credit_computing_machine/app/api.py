@@ -53,7 +53,7 @@ class CreditGroupCreateApi(generics.CreateAPIView):
                             if user_id != internal_user_id:
                                 CreditScore.objects.create(from_credit_user_id= user_id,to_credit_user_id =internal_user_id,credit_group= credit_group ,score = 0)
 
-                    email_service.send_invite_email_to_non_admin_credit_group(credit_group.id)
+                    email_service.send_invite_email_to_all_credit_group(credit_group.id)
 
                     response = {'msg': 'Group created'}
                 else:
