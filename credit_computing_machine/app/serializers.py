@@ -62,13 +62,14 @@ class CreditScoreSerializer(serializers.ModelSerializer):
     '''
     Serializer for CreditUser Create.
     '''
-
+    to_credit_user_name = serializers.ReadOnlyField()
     class Meta:
         '''
         Serializer customization
         '''
         model = CreditScore
-        fields = ('score','to_credit_user','from_credit_user','credit_group')
+
+        fields = ('score','to_credit_user','from_credit_user','credit_group','to_credit_user_name')
         extra_kwargs = {'to_credit_user': {'read_only': False}}
 
 class CreditScoreUpdateSerializer(serializers.ModelSerializer):
@@ -137,5 +138,4 @@ class CreditUserScoreUpdateSerializer(serializers.ModelSerializer):
         credit_scores = validated_data.pop('from_credit_user')
         credit_score_serializer_data = CreditScoreSerializer(data=credit_scores, many=True)
         result = Utility.save_and_update_data(CreditScoreUpdateSerializer,credit_scores,CreditScore,['from_credit_user','to_credit_user', 'credit_group'])
-        print(result)
         return instance
