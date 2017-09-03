@@ -25,7 +25,7 @@ def send_invite_email_to_non_admin_credit_group(credit_group_id):
     for credit_user in credit_users:
         to_email, from_email, = credit_user.email, FROM_EMAIL
         template = 'invite_email'
-        call_to_action = settings.FRONT_END_ROOT_URL + '/give_scores/' + '?token=' + credit_user.privateurl.token
+        call_to_action = settings.FRONT_END_ROOT_URL + '/scores/'+ credit_user.privateurl.token
         dict_context = {'name': credit_user.name,
                         'call_to_action': call_to_action
                         }
@@ -37,7 +37,7 @@ def send_email_to_admin_credit_group(credit_group_id):
     for credit_user in credit_users:
         to_email, from_email, = credit_user.email, FROM_EMAIL
         template = 'manage_group_email'
-        call_to_action = settings.FRONT_END_ROOT_URL + '/give_scores/' + '?token=' + credit_user.privateurl.token
+        call_to_action = settings.FRONT_END_ROOT_URL + '/manage-group/'+credit_user.privateurl.token
         dict_context = {'name': credit_user.name,
                         'call_to_action': call_to_action
                         }
