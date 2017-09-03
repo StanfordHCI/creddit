@@ -1,0 +1,48 @@
+<section class="banner">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12l text-center pad-T150 about-banner">
+        <div class="col-sm-8">
+          <h1>SUCCESS</h1>
+          <p>We've saved your responses.</p>
+        </div>
+        <div class="col-sm-4 about-img"><img src="../img/about-icon.png" alt="about" title=""></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="article detail_page">
+  <form #groupAddForm="ngForm" (ngSubmit)="postScore()">
+    <div class="container">
+      <div class="col-md-12 add-group group">
+        <p>The group creator, , can see the results aggregated across all group members, and share them
+        when ready. If you later want to change how many points you gave each person,
+        visitthe same link in your email:</p>
+        <span>dasjhdgash.com/jhasdjsagjds</span>
+      </div>
+      <div class="col-md-12 inputgroup" *ngFor="let creditUser of groupData.from_credit_user; let i = index">
+        <div class="col-md-2">
+          <div class="input-circle">
+            <span class="circle-text">{{getInitials(creditUser.to_credit_user_name)}}</span>
+          </div>
+        </div>
+        <div class="col-md-6 pdl0 personName">
+          <h1>
+            {{creditUser.to_credit_user_name}}
+          </h1>
+        </div>
+        <div class="col-md-4 pdr0">
+          <h3>
+            <span class="score">{{creditUser.score}}</span>
+          </h3>
+        </div>
+      </div>
+      <div class="col-md-12 pdnone btn-submit">
+        <a [routerLink]="['/scores', token]" class="btn btn-primary btn-lg" style="border: 0">
+          Edit
+        </a>
+      </div>
+    </div>
+  </form>
+</section>
+<div class="clr"></div>

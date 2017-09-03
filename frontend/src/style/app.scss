@@ -1,4 +1,12 @@
 @charset "utf-8";
+@import "../../node_modules/ladda/css/ladda";
+@import '../../node_modules/ngx-toastr/toastr.css';
+
+
+.form-control {
+  height: auto;
+}
+
 .big-text, .bigNumberSlogon, .h-t .h2, .h-t h2 {
 	text-transform: uppercase
 }

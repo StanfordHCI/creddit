@@ -1,0 +1,50 @@
+a{
+  cursor: pointer;
+}
+button[disabled] {
+  cursor: not-allowed;
+  background-color: darkgray;
+}
+
+.circle-text{
+  font-size: 40px;
+  color: #fff;
+  padding: 15px 15px;
+  line-height: 85px;
+}
+
+.color-blue-text{
+  color: #27a0bf;
+  font-size: 50px;
+}
+
+.add-group-extra{
+  border:none;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.personName h1{
+  color:rgb(129, 129, 129);
+}
+
+.inputgroup {
+  margin: 10px 0px;
+}
+
+.pdnone.btn-submit{
+  text-align:center;
+}
+
+
+.detail_page h1,h3 {
+  color: #828282;
+  line-height: 45px;
+  color:rgb(129, 129, 129);
+}
+
+.detail_page h1 .score,
+.detail_page h3 .score,
+.color-blue-text{
+  color: #27a0bf;
+}
+

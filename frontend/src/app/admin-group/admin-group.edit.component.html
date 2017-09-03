@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-sm-12l text-center pad-T150 about-banner">
         <div class="col-sm-8">
-          <h1>Add team members</h1>
+          <h1>Edit team members</h1>
           <p>Each member of the group will receive an email with a private link for giving out credits.</p>
         </div>
         <div class="col-sm-4 about-img"><img src="../img/about-icon.png" alt="about" title=""></div>
@@ -14,24 +14,7 @@
 <section class="article">
   <form #groupAddForm="ngForm" (ngSubmit)="createGroup()">
     <div class="container">
-      <div class="col-md-12 group">
-        <div class="groupname">
-          <input required [(ngModel)]="groupData.name"
-            name="groupName"
-            type="text" placeholder="Group name"
-            class="input form-control">
-          <h4>Group administrator:</h4>
-        </div>
-        <div class="col-md-12" *ngFor="let creditAdmin of groupData.credit_admin; let i = index">
-          <div class="col-md-6">
-            <input required [(ngModel)]="creditAdmin.name" name="creditAdminName-{{i}}" type="text" placeholder="Name" class="input form-control">
-          </div>
-          <div class="col-md-6">
-            <input required [(ngModel)]="creditAdmin.email" name="creditAdminEmail-{{i}}" email placeholder="Email" class="input form-control">
-          </div>
-        </div>
-      </div>
-      <div class="col-md-12 add-group">
+      <div class="col-md-12 add-group group">
         <p>Add group members. Once completed, they will each be emailed a private URL to enter their scores.</p>
       </div>
       <div class="col-md-12 inputgroup" *ngFor="let creditUser of groupData.credit_users; let i = index">
@@ -42,9 +25,9 @@
         </div>
         <div class="col-md-4 pdl0" [class.has-error]="name.invalid && name.touched">
           <input required [(ngModel)]="creditUser.name" #name="ngModel"
-                name="name-{{i}}" type="text" placeholder="Name" class="inputsearch form-control">
+                 name="name-{{i}}" type="text" placeholder="Name" class="inputsearch form-control">
           <label class="control-label"
-          *ngIf="name.errors && name.errors.required && name.touched">
+                 *ngIf="name.errors && name.errors.required && name.touched">
             <i class="fa fa-times-circle-o"></i> Name is required
           </label>
         </div>

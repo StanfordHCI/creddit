@@ -3,4 +3,12 @@ a{
 }
 button[disabled] {
   cursor: not-allowed;
+  background-color: darkgray;
+}
+
+.circle-text{
+  font-size: 40px;
+  color: #fff;
+  padding: 15px 15px;
+  line-height: 85px;
 }

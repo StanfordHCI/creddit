@@ -1,39 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupService } from '../shared/services/group.service';
-import { UserModel } from '../shared/models/user-model';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Router, ActivatedRoute} from '@angular/router';
+
 
 @Component({
-  templateUrl: './create-group.component.html',
-  styleUrls: ['./create-group.component.scss']
+  templateUrl: './score.component.html',
+  styleUrls: ['./score.component.scss']
 })
-export class CreateGroupComponent implements OnInit {
-  groupData = {
-    name : '',
-    credit_admin : [
-      new UserModel()
-    ],
-    credit_users : [
-      new UserModel()
-    ]
-  };
+export class ScoreComponent implements OnInit {
+  private groupData = {};
+  private token: string = '';
   // trigger-variable for Ladda
   isLoading = false;
   constructor(
     private groupService: GroupService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private route: ActivatedRoute
   ) {
   }
 
-  addMoreUser() {
-    this.groupData.credit_users.push(new UserModel());
-  }
-
-  removeUser(index) {
-    this.groupData.credit_users.splice(index, 1);
-  }
 
   getInitials(name) {
     if (name) {
@@ -62,7 +49,15 @@ export class CreateGroupComponent implements OnInit {
       );
   }
   ngOnInit() {
-    console.log('Hello Create Group');
+    console.log('Hello Score User');
+    this.token = this.route.snapshot.params['token'];
+    this.groupService.getGroupDetailsForScore(this.token)
+      .subscribe(data => {
+        this.groupData = data;
+      }, err => {
+        this.router.navigate(['/']);
+        console.log(err)
+      })
   }
 
 
