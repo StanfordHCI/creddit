@@ -21,6 +21,7 @@ def send_invite_email_to_all_credit_group(credit_group_id):
 
 def send_invite_email_to_non_admin_credit_group(credit_group_id):
     credit_users = CreditGroup.objects.get_credit_non_admin_user(credit_group_id)
+    credit_group = CreditGroup.objects.get(id=credit_group_id)
 
     credit_admin_users = CreditGroup.objects.get_credit_admin_user(credit_group_id)
     if credit_admin_users:
@@ -33,7 +34,8 @@ def send_invite_email_to_non_admin_credit_group(credit_group_id):
         template = 'invite_email'
         call_to_action = settings.FRONT_END_ROOT_URL + '/scores/'+ credit_user.privateurl.token
         dict_context = {'admin_name': admin_name,
-                        'call_to_action': call_to_action
+                        'call_to_action': call_to_action,
+                        'group_name':credit_group.name
 
                         }
         send_email(to_email, from_email, template, dict_context)
@@ -49,6 +51,7 @@ def send_email_to_admin_credit_group(credit_group_id):
 
         call_to_action = settings.FRONT_END_ROOT_URL + '/manage-group/'+credit_group.privateurl.token
         dict_context = {'name': credit_user.name,
-                        'call_to_action': call_to_action
+                        'call_to_action': call_to_action,
+                        'group_name': credit_group.name
                         }
         send_email(to_email, from_email, template, dict_context)
