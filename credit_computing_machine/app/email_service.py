@@ -22,22 +22,32 @@ def send_invite_email_to_all_credit_group(credit_group_id):
 def send_invite_email_to_non_admin_credit_group(credit_group_id):
     credit_users = CreditGroup.objects.get_credit_non_admin_user(credit_group_id)
 
+    credit_admin_users = CreditGroup.objects.get_credit_admin_user(credit_group_id)
+    if credit_admin_users:
+        admin_name = credit_admin_users[0].name
+    else:
+        admin_name= 'admin'
+
     for credit_user in credit_users:
         to_email, from_email, = credit_user.email, FROM_EMAIL
         template = 'invite_email'
         call_to_action = settings.FRONT_END_ROOT_URL + '/scores/'+ credit_user.privateurl.token
-        dict_context = {'name': credit_user.name,
+        dict_context = {'admin_name': admin_name,
                         'call_to_action': call_to_action
+
                         }
         send_email(to_email, from_email, template, dict_context)
 
 
 def send_email_to_admin_credit_group(credit_group_id):
     credit_users = CreditGroup.objects.get_credit_admin_user(credit_group_id)
+    credit_group = CreditGroup.objects.get(id=credit_group_id)
     for credit_user in credit_users:
         to_email, from_email, = credit_user.email, FROM_EMAIL
         template = 'manage_group_email'
-        call_to_action = settings.FRONT_END_ROOT_URL + '/manage-group/'+credit_user.privateurl.token
+
+
+        call_to_action = settings.FRONT_END_ROOT_URL + '/manage-group/'+credit_group.privateurl.token
         dict_context = {'name': credit_user.name,
                         'call_to_action': call_to_action
                         }
