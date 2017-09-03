@@ -1,0 +1,56 @@
+<section class="banner">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12l text-center pad-T150 about-banner">
+        <div class="col-sm-8">
+          <h1>How much Credit does each person deserve?</h1>
+          <p>{{groupData.group_name}}</p>
+        </div>
+        <div class="col-sm-4 about-img"><img src="../img/about-icon.png" alt="about" title=""></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="article">
+  <form #groupAddForm="ngForm" (ngSubmit)="postScore()">
+    <div class="container">
+      <div class="col-md-12 add-group group">
+        <p>Divide up 100 points of credit amongst the members of the group. We will keep these points private.
+        The more points you give, someone the more credit they get.</p>
+      </div>
+      <div class="col-md-12 add-group add-group-extra">
+        <p>You have <span class="color-blue-text">{{totalCount}}</span> points</p>
+      </div>
+      <div class="col-md-12 inputgroup" *ngFor="let creditUser of groupData.from_credit_user; let i = index">
+        <div class="col-md-2">
+          <div class="input-circle">
+            <span class="circle-text">{{getInitials(creditUser.to_credit_user_name)}}</span>
+          </div>
+        </div>
+        <div class="col-md-6 pdl0 personName">
+          <h1>
+            {{creditUser.to_credit_user_name}}
+          </h1>
+        </div>
+        <div class="col-md-4 pdr0">
+          <div class="btn-group" role="group" aria-label="...">
+            <button [disabled] = "creditUser.score == 0" (click)="subpoints(creditUser)" type="button" class="btn btn-default">
+              <i class="fa fa-minus-circle"></i>
+            </button>
+            <input readonly [(ngModel)]="creditUser.score" #name="ngModel"
+                   name="name-{{i}}" type="number" class="btn btn-default">
+            <button (click)="addpoints(creditUser)" type="button" class="btn btn-default">
+              <i class="fa fa-plus-circle"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 pdnone btn-submit">
+        <button [ladda]="isLoading" type="submit" class="btn btn-primary btn-lg" style="border: 0">
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+</section>
+<div class="clr"></div>
