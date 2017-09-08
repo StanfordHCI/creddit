@@ -20,15 +20,25 @@
             name="groupName"
             type="text" placeholder="Group name"
             class="input form-control">
-          <h4>Group administrator:</h4>
+            <label  class="control-label error">
+            <i class="fa fa-times-circle-o"></i> Name is required
+          </label>
+         
         </div>
-        <div class="col-md-12" *ngFor="let creditAdmin of groupData.credit_admin; let i = index">
-          <div class="col-md-6">
+          <div class="col-md-12"> <h4 class="groupname text-center">Group administrator:</h4></div>
+        <div class="" *ngFor="let creditAdmin of groupData.credit_admin; let i = index">
+          <div class="col-md-6 mrg-B15">
             <input required [(ngModel)]="creditAdmin.name" name="creditAdminName-{{i}}" type="text" placeholder="Name" class="input form-control">
-          </div>
-          <div class="col-md-6">
+         <label  class="control-label error">
+            <i class="fa fa-times-circle-o"></i> Name is required
+          </label>
+            </div>
+          <div class="col-md-6 mrg-B15">
             <input required [(ngModel)]="creditAdmin.email" name="creditAdminEmail-{{i}}" email placeholder="Email" class="input form-control">
-          </div>
+          <label  class="control-label error">
+            <i class="fa fa-times-circle-o"></i> Name is required
+          </label>
+            </div>
         </div>
       </div>
       <div class="col-md-12 add-group">
@@ -36,8 +46,8 @@
       </div>
       <div class="col-md-12 inputgroup" *ngFor="let creditUser of groupData.credit_users; let i = index">
         <div class="col-md-2">
-          <div class="input-circle">
-            <span class="circle-text">{{getInitials(creditUser.name)}}</span>
+          <div class="input-circle circle-text">
+            {{getInitials(creditUser.name)}}
           </div>
         </div>
         <div class="col-md-4 pdl0" [class.has-error]="name.invalid && name.touched">
