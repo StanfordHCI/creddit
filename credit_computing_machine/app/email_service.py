@@ -1,4 +1,4 @@
-from app.models import CreditGroup
+from app.models import CreditGroup , CreditUser
 from post_office import mail
 from django.conf import settings
 
@@ -16,7 +16,7 @@ def send_email(to_email, from_email, template, dict_context):
 
 def send_invite_email_to_all_credit_group(credit_group_id):
     send_invite_email_to_non_admin_credit_group(credit_group_id)
-    send_email_to_admin_credit_group(credit_group_id)
+    send_manage_email_to_admin_credit_group(credit_group_id)
 
 
 def send_invite_email_to_non_admin_credit_group(credit_group_id):
@@ -41,7 +41,7 @@ def send_invite_email_to_non_admin_credit_group(credit_group_id):
         send_email(to_email, from_email, template, dict_context)
 
 
-def send_email_to_admin_credit_group(credit_group_id):
+def send_manage_email_to_admin_credit_group(credit_group_id):
     credit_users = CreditGroup.objects.get_credit_admin_user(credit_group_id)
     credit_group = CreditGroup.objects.get(id=credit_group_id)
     for credit_user in credit_users:
@@ -51,6 +51,21 @@ def send_email_to_admin_credit_group(credit_group_id):
 
         call_to_action = settings.FRONT_END_ROOT_URL + '/manage-group/'+credit_group.privateurl.token
         dict_context = {'name': credit_user.name,
+                        'call_to_action': call_to_action,
+                        'group_name': credit_group.name
+                        }
+        send_email(to_email, from_email, template, dict_context)
+
+
+def send_score_updated_email_to_admin_credit_group(credit_group_id,credit_user_id):
+    credit_users = CreditGroup.objects.get_credit_admin_user(credit_group_id)
+    credit_group = CreditGroup.objects.get(id=credit_group_id)
+    name = CreditUser.objects.get(credit_user_id).name
+    for credit_user in credit_users:
+        to_email, from_email, = credit_user.email, FROM_EMAIL
+        template = 'updated_score_admin_email'
+        call_to_action = settings.FRONT_END_ROOT_URL + '/manage-group/'+credit_group.privateurl.token
+        dict_context = {'name': name,
                         'call_to_action': call_to_action,
                         'group_name': credit_group.name
                         }
