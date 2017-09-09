@@ -83,4 +83,7 @@ class CreditUserScoresRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
         except CreditUser.DoesNotExist:
             raise CustomAPIException('Not a vaild page')
 
+    def put(self, request, *args, **kwargs):
+        updated_result = self.update(request, *args, **kwargs)
 
+        return updated_result
