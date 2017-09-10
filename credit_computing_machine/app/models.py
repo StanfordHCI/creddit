@@ -16,6 +16,18 @@ class CreditManager(models.Manager):
     def get_credit_non_admin_user(self, credit_group_id):
         return CreditUser.objects.filter(credit_group=credit_group_id, is_admin=False)
 
+    def get_dict_scores(self,credit_group_id):
+        users = CreditGroup.objects.get_credit_non_admin_user(credit_group_id)
+        credit_scores = CreditScore.objects.filter(credit_group_id=credit_group_id)
+        dict_scores = {}
+        for user in users:
+          dict_scores[user.email] = {}
+          user_scores = credit_scores.filter(from_credit_user = user)
+          for user_score in user_scores:
+            dict_scores[user.email][user_score.to_credit_user.email] = user_score.score
+
+        return dict_scores
+
 
 class CreditGroup(TimestampModel):
     name = models.CharField(max_length=200,unique=True)
@@ -67,6 +79,10 @@ class CreditScore(TimestampModel):
     @property
     def to_credit_user_name(self):
         return self.to_credit_user.name
+
+    @property
+    def to_credit_user_email(self):
+        return self.to_credit_user.email
 
     def __str__(self):
         return '%s to %s from %s'%(self.from_credit_user,self.to_credit_user,self.credit_group)

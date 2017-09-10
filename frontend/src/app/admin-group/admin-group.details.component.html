@@ -16,29 +16,32 @@
       <div class="col-md-12 add-group group">
         <p>{{messageToShow}}</p>
       </div>
-      <div class="col-md-12 inputgroup" *ngFor="let creditUser of groupData.credit_users; let i = index">
-        <div class="col-md-2">
-          <div class="input-circle">
-            <span class="circle-text">{{getInitials(creditUser.name)}}</span>
+      <div class="col-md-12 inputgroup mrg-T60 " *ngFor="let creditUser of groupData.credit_users; let i = index">
+           <div class="col-sm-2 ">
+            <div class="input-circle circle-text">
+               {{getInitials(creditUser.name)}}
+             </div>
           </div>
-        </div>
-        <div class="col-md-6 pdl0">
-          <h1>
-            {{creditUser.name}}
-          </h1>
-        </div>
-        <div class="col-md-4 pdr0">
+           
+           <div class="col-md-7 pdl0">
+       
+            
           <h3>
-            Creddit Score :- <span class="score">{{creditUser.score}}</span>
+            {{creditUser.name}}
+          </h3>
+        </div>
+        <div class="col-md-3 pdr0">
+          <h3>
+            Creddit Score :- <span class="score-no">{{creditUser.score}}</span>
           </h3>
         </div>
       </div>
       <div class="col-md-12 pdnone">
-        <div class="col-md-6 pdl0">
-          <a [routerLink]="['/edit-group', token]" class="btn btn-primary">EDIT GROUP</a>
+        <div class="col-md-6 pdl0 text-right">
+          <a [routerLink]="['/edit-group', token]" class="btn btn-primary customBTN">EDIT GROUP</a>
         </div>
-        <div class="col-md-6 pdr0">
-          <button type="button" class="btn btn-primary">GET SHAREABLE LINK</button>
+        <div class="col-md-6 pdr0 text-left">
+          <button type="button" class="btn btn-primary customBTN">GET SHAREABLE LINK</button>
         </div>
       </div>
     </div>
