@@ -5,7 +5,7 @@ EMAIL_HOST_USER = 'duahimanshu101@gmail.com'
 EMAIL_HOST_PASSWORD = 'clasmate'
 
 
-FRONT_END_ROOT_URL = 'http://52.15.189.94:8080'
+FRONT_END_ROOT_URL = 'http://18.220.171.98:8080'
 EMAIL_BACKEND = 'post_office.EmailBackend'
 
 # Put this in settings.py
