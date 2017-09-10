@@ -28,18 +28,18 @@
           </div>
         </div>
         <div class="col-md-6 pdl0 personName">
-          <h1>
+          <h2>
             {{creditUser.to_credit_user_name}}
-          </h1>
+          </h2>
         </div>
-        <div class="col-md-4 pdr0">
-          <div class="btn-group" role="group" aria-label="...">
-            <button [disabled] = "creditUser.score == 0" (click)="subpoints(creditUser)" type="button" class="btn btn-default">
+        <div class="col-md-4 pdr0 text-center   ">
+          <div class="" role="group" aria-label="...">
+            <button [disabled] = "creditUser.score == 0" (click)="subpoints(creditUser)" type="button" class="btn btn-default btn-effet-n font-size-40">
               <i class="fa fa-minus-circle"></i>
             </button>
             <input readonly [(ngModel)]="creditUser.score" #name="ngModel"
-                   name="name-{{i}}" type="number" class="btn btn-default">
-            <button (click)="addpoints(creditUser)" type="button" class="btn btn-default">
+                   name="name-{{i}}" type="number" class="input-width">
+            <button (click)="addpoints(creditUser)" type="button" class="btn btn-default btn-effet-n font-size-40">
               <i class="fa fa-plus-circle"></i>
             </button>
           </div>
