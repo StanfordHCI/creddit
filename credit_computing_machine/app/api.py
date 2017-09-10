@@ -114,6 +114,7 @@ class CreditUserScoresRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
         result = serializer.data
         token = kwargs.get('token')
         if token:
+            self_user = CreditUser.objects.filter(privateurl__token__exact=token).first()
             result['self_user'] = CreditUserSerializer(self_user).data
             
 
