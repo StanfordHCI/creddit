@@ -117,5 +117,8 @@ class CreditUserScoresRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
             self_user = CreditUser.objects.filter(privateurl__token__exact=token).first()
             result['self_user'] = CreditUserSerializer(self_user).data
             
+        credit_admin_users = CreditGroup.objects.get_credit_admin_user(instance.credit_group.id)
+        if credit_admin_users:
+            result['admin_user'] = CreditUserSerializer(credit_admin_users[0]).data
 
         return Response(result)
