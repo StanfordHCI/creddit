@@ -5,7 +5,7 @@ from rest_framework import generics, status
 from django.contrib.auth import authenticate
 
 from app.models import CreditGroup, CreditScore, CreditUser
-from .serializers import CreditGroupCreateSerializer
+from .serializers import CreditGroupCreateSerializer , CreditScoreSerializer, CreditUserSerializer
 from .serializers import CreditUserCreateSerializer, CreditGroupUpdateSerializer, CreditUserScoreUpdateSerializer
 from privateurl.models import PrivateUrl
 from rest_framework.response import Response
@@ -90,7 +90,7 @@ class CreditGroupRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
             for credit_user in credit_users:
                 email = credit_user.get('email')
                 if  email and compute_result.get(email):
-                    credit_user['score'] = compute_result.get(email)
+                    credit_user['score'] = compute_result.get(email)    
         result['credit_users'] = credit_users
         return Response(result)
 
@@ -107,3 +107,14 @@ class CreditUserScoresRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
         updated_result = self.update(request, *args, **kwargs)
 
         return updated_result
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        result = serializer.data
+        token = kwargs.get('token')
+        if token:
+            result['self_user'] = CreditUserSerializer(self_user).data
+            
+
+        return Response(result)

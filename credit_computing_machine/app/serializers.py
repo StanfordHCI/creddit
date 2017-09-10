@@ -63,13 +63,14 @@ class CreditScoreSerializer(serializers.ModelSerializer):
     Serializer for CreditUser Create.
     '''
     to_credit_user_name = serializers.ReadOnlyField()
+    to_credit_user_email =  serializers.ReadOnlyField()
     class Meta:
         '''
         Serializer customization
         '''
         model = CreditScore
 
-        fields = ('score','to_credit_user','from_credit_user','credit_group','to_credit_user_name')
+        fields = ('score','to_credit_user','from_credit_user','credit_group','to_credit_user_name','to_credit_user_email')
         extra_kwargs = {'to_credit_user': {'read_only': False}}
 
 class CreditScoreUpdateSerializer(serializers.ModelSerializer):

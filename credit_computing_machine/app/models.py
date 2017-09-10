@@ -80,5 +80,9 @@ class CreditScore(TimestampModel):
     def to_credit_user_name(self):
         return self.to_credit_user.name
 
+    @property
+    def to_credit_user_email(self):
+        return self.to_credit_user.email
+
     def __str__(self):
         return '%s to %s from %s'%(self.from_credit_user,self.to_credit_user,self.credit_group)
