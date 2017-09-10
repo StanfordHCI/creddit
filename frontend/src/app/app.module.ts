@@ -18,7 +18,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { LaddaModule } from 'angular2-ladda';
 import { ToastrModule } from 'ngx-toastr';
-
+import { ClipModule } from 'ng2-clip'
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
@@ -34,7 +34,8 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     LaddaModule.forRoot({
       style: 'slide-left'
     }),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ClipModule
   ],
   declarations: [
     AppComponent,

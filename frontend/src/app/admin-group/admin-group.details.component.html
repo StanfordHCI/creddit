@@ -22,17 +22,14 @@
                {{getInitials(creditUser.name)}}
              </div>
           </div>
-           
-           <div class="col-md-7 pdl0">
-       
-            
+           <div class="col-md-6 pdl0">
           <h3>
             {{creditUser.name}}
           </h3>
         </div>
-        <div class="col-md-3 pdr0">
+        <div class="col-md-4 pdr0">
           <h3>
-            Creddit Score :- <span class="score-no">{{creditUser.score}}</span>
+            Creddit Score :- <span class="score-no">{{creditUser.score | number : '1.2-2'}}</span>
           </h3>
         </div>
       </div>
@@ -41,7 +38,7 @@
           <a [routerLink]="['/edit-group', token]" class="btn btn-primary customBTN">EDIT GROUP</a>
         </div>
         <div class="col-md-6 pdr0 text-left">
-          <button type="button" class="btn btn-primary customBTN">GET SHAREABLE LINK</button>
+          <button type="button" [clip]="pathToCopy" class="btn btn-primary customBTN" (onClip)="copyTextCallback($event)">GET SHAREABLE LINK</button>
         </div>
       </div>
     </div>

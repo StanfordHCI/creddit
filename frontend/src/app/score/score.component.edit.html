@@ -21,6 +21,21 @@
       <div class="col-md-12 add-group add-group-extra">
         <p>You have <span class="color-blue-text">{{totalCount}}</span> points</p>
       </div>
+      <div class="col-md-12 inputgroup" *ngIf = "groupData.self_user">
+        <div class="col-md-2">
+          <div class="input-circle">
+            <span class="circle-text">{{getInitials(groupData.self_user.name)}}</span>
+          </div>
+        </div>
+        <div class="col-md-6 pdl0 personName">
+          <h2>
+            {{groupData.self_user.name}}
+          </h2>
+        </div>
+        <div class="col-md-4 pdr0 text-center   ">
+          <h3>This is You.</h3>
+        </div>
+      </div>
       <div class="col-md-12 inputgroup" *ngFor="let creditUser of groupData.from_credit_user; let i = index">
         <div class="col-md-2">
           <div class="input-circle">

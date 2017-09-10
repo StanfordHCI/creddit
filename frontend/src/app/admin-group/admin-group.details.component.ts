@@ -14,12 +14,15 @@ export class GroupDetailsAdminComponent implements OnInit {
   private dataLoaded: boolean= false;
   private groupData: any = '';
   private messageToShow = '';
+  private pathToCopy: string;
   constructor(
     private groupService: GroupService,
     private router:Router,
     private route: ActivatedRoute,
     private toastr: ToastrService
-  ) {}
+  ) {
+    this.pathToCopy = window.location.href;
+  }
 
   getInitials(name) {
     if(name) {
@@ -28,6 +31,11 @@ export class GroupDetailsAdminComponent implements OnInit {
       return initials;
     }
     return '';
+  }
+
+  copyTextCallback(eventData) {
+    this.toastr.success('Private url has been copied to your clipboard.', 'Copied');
+    console.log(eventData)
   }
 
   ngOnInit() {
