@@ -1,0 +1,46 @@
+<section class="banner">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12l text-center pad-T150 about-banner">
+        <div class="col-sm-8">
+          <h1>Manage Group</h1>
+          <p>{{groupData.name}}</p>
+        </div>
+        <div class="col-sm-4 about-img"><img src="../img/about-icon.png" alt="about" title=""></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="article detail_page">
+    <div class="container">
+      <div class="col-md-12 add-group group">
+        <p>{{messageToShow}}</p>
+      </div>
+      <div class="col-md-12 inputgroup mrg-T60 " *ngFor="let creditUser of groupData.credit_users; let i = index">
+           <div class="col-sm-2 ">
+            <div class="input-circle circle-text">
+               {{getInitials(creditUser.name)}}
+             </div>
+          </div>
+           <div class="col-md-6 pdl0">
+          <h3>
+            {{creditUser.name}}
+          </h3>
+        </div>
+        <div class="col-md-4 pdr0">
+          <h3>
+            Creddit Score :- <span class="score-no">{{creditUser.score | number : '1.2-2'}}</span>
+          </h3>
+        </div>
+      </div>
+      <div class="col-md-12 pdnone">
+        <div class="col-md-6 pdl0 text-right">
+          <a disabled [routerLink]="['/edit-group', token]" class="btn btn-primary customBTN">EDIT GROUP</a>
+        </div>
+        <div class="col-md-6 pdr0 text-left">
+          <button type="button" [clip]="pathToCopy" class="btn btn-primary customBTN" (onClip)="copyTextCallback($event)">GET SHAREABLE LINK</button>
+        </div>
+      </div>
+    </div>
+</section>
+<div class="clr"></div>
