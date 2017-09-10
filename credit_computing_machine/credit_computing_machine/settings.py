@@ -125,12 +125,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-
-CORS_ORIGIN_WHITELIST = (
-    'http://18.220.171.98:8080',
-    'http://localhost:8080',
-    'http://creditdemo.techbrez.com'
-)
+CORS_ORIGIN_ALLOW_ALL = True 
+#CORS_ORIGIN_WHITELIST = (
+#    'http://creditdemo.techbrez.com',
+#)
 
 
 REST_FRAMEWORK = {
