@@ -96,7 +96,8 @@ class CreditUserUpdateSerializer(serializers.ModelSerializer):
         Serializer customization
         '''
         model = CreditUser
-        fields = ('name','email','score')
+        fields = ('name','email','score','is_admin')
+        read_only_fields = ('is_admin',)
 
 class CreditGroupUpdateSerializer(serializers.ModelSerializer):
     '''

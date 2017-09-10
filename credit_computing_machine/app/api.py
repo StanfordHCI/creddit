@@ -80,18 +80,19 @@ class CreditGroupRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         result = serializer.data
-        if result.get('credit_users'):
+        credit_users = result.get('credit_users')
+        credit_users = [credit_user for credit_user in credit_users if not credit_user.get('is_admin')] 
+        if credit_users:
             credit_group = self.get_object()
             dict_scores = CreditGroup.objects.get_dict_scores(credit_group.id)
             compute_result = compute_scores(dict_scores)
-            credit_users = result.get('credit_users')
 
             for credit_user in credit_users:
                 email = credit_user.get('email')
                 if  email and compute_result.get(email):
                     credit_user['score'] = compute_result.get(email)
-
-        return Response(serializer.data)
+        result['credit_users'] = credit_users
+        return Response(result)
 
 class CreditUserScoresRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
     serializer_class = CreditUserScoreUpdateSerializer
