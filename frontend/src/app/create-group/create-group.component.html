@@ -15,30 +15,42 @@
   <form #groupAddForm="ngForm" (ngSubmit)="createGroup()">
     <div class="container">
       <div class="col-md-12 group">
-        <div class="groupname">
+        <div class="groupname" [class.has-error]="groupName.invalid && groupName.touched">
           <input required [(ngModel)]="groupData.name"
-            name="groupName"
+            name="groupName" #groupName="ngModel"
             type="text" placeholder="Group name"
             class="input form-control">
-            <label  class="control-label error">
-            <i class="fa fa-times-circle-o"></i> Name is required
-          </label>
-         
+            <label  class="control-label" *ngIf="groupName.errors && groupName.errors.required && groupName.touched">
+              <i class="fa fa-times-circle-o"></i> Group Name is required
+            </label>
         </div>
           <div class="col-md-12"> <h4 class="groupname text-center">Group administrator:</h4></div>
         <div class="" *ngFor="let creditAdmin of groupData.credit_admin; let i = index">
-          <div class="col-md-6 mrg-B15">
-            <input required [(ngModel)]="creditAdmin.name" name="creditAdminName-{{i}}" type="text" placeholder="Name" class="input form-control">
-         <label  class="control-label error">
-            <i class="fa fa-times-circle-o"></i> Name is required
-          </label>
-            </div>
-          <div class="col-md-6 mrg-B15">
-            <input required [(ngModel)]="creditAdmin.email" name="creditAdminEmail-{{i}}" email placeholder="Email" class="input form-control">
-          <label  class="control-label error">
-            <i class="fa fa-times-circle-o"></i> Name is required
-          </label>
-            </div>
+          <div class="col-md-6 mrg-B15" [class.has-error]="groupAdmin.invalid && groupAdmin.touched">
+            <input required
+                   [(ngModel)]="creditAdmin.name"
+                   #groupAdmin = "ngModel"
+                   name="creditAdminName-{{i}}" type="text"
+                   placeholder="Name" class="input form-control">
+             <label *ngIf="groupAdmin.errors && groupAdmin.errors.required && groupAdmin.touched" class="control-label">
+                <i class="fa fa-times-circle-o"></i> Name is required
+              </label>
+          </div>
+          <div class="col-md-6 mrg-B15" [class.has-error]="groupAdminEmail.invalid && groupAdminEmail.touched">
+            <input required
+                   [(ngModel)]="creditAdmin.email"
+                   #groupAdminEmail = "ngModel"
+                   name="creditAdminEmail-{{i}}"
+                   email placeholder="Email"
+                   class="input form-control">
+            <label class="control-label" *ngIf="groupAdminEmail.errors && groupAdminEmail.errors.required && groupAdminEmail.touched">
+              <i class="fa fa-times-circle-o"></i> Email is required
+            </label>
+            <label class="control-label"
+                   *ngIf="groupAdminEmail.errors && groupAdminEmail.errors.email && groupAdminEmail.touched && !groupAdminEmail.errors.required">
+              <i class="fa fa-times-circle-o"></i> Invalid Email
+            </label>
+          </div>
         </div>
       </div>
       <div class="col-md-12 add-group">
