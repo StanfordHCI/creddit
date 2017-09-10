@@ -12,13 +12,16 @@
   </div>
 </section>
 <section class="article detail_page">
-  <form #groupAddForm="ngForm" (ngSubmit)="postScore()">
     <div class="container">
-      <div class="col-md-12 add-group group">
+      <div class="col-md-12 add-group group" *ngIf="groupData && groupData.admin_user">
         <p>The group creator, {{groupData.admin_user.name}} , can see the results aggregated across all group members, and share them
         when ready. If you later want to change how many points you gave each person,
         visitthe same link in your email:</p>
-        <span>dasjhdgash.com/jhasdjsagjds</span>
+        <p>
+          <a href="{{pathToCopy}}" class="btn btn-primary btn-lg" style="border: 0;margin-top: 15px;">
+            {{pathToCopy}}
+          </a>
+        </p>
       </div>
       <div class="col-md-12 inputgroup" *ngFor="let creditUser of groupData.from_credit_user; let i = index">
         <div class="col-md-2">
@@ -43,6 +46,5 @@
         </a>
       </div>
     </div>
-  </form>
 </section>
 <div class="clr"></div>

@@ -12,12 +12,16 @@ export class ScoreDetailComponent implements OnInit {
   private token: string = '';
   // trigger-variable for Ladda
   isLoading = false;
+  private pathToCopy: string;
   constructor(
     private groupService: GroupService,
     private router: Router,
     private toastr: ToastrService,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    let pathToCo = window.location.href;
+    this.pathToCopy = pathToCo.substring(0, pathToCo.lastIndexOf("/success"))
+  }
 
   getInitials(name) {
     if (name) {
