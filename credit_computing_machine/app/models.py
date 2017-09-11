@@ -51,6 +51,7 @@ class CreditUser(TimestampModel):
     credit_group = models.ForeignKey(CreditGroup, null=True, blank=True, related_name='credit_users')
     is_admin = models.BooleanField(default=False)
     privateurl = models.ForeignKey(PrivateUrl, null=True)
+    is_submitted = models.BooleanField(default=False)
     objects = CreditManager()
 
 

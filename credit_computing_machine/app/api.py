@@ -105,7 +105,10 @@ class CreditUserScoresRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
 
     def put(self, request, *args, **kwargs):
         updated_result = self.update(request, *args, **kwargs)
-
+        instance = self.get_object()
+        instance.is_submitted = True
+        instance.save()
+        email_service.send_score_updated_email_to_admin_credit_group(instance.credit_group.id, instance.id)
         return updated_result
 
     def retrieve(self, request, *args, **kwargs):

@@ -99,3 +99,6 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+credit_computing_machine/.idea/*
+credit_computing_machine/db.sqlite3

@@ -58,15 +58,17 @@ def send_manage_email_to_admin_credit_group(credit_group_id):
 
 
 def send_score_updated_email_to_admin_credit_group(credit_group_id,credit_user_id):
-    credit_users = CreditGroup.objects.get_credit_admin_user(credit_group_id)
+    credit_admin_users = CreditGroup.objects.get_credit_admin_user(credit_group_id)
     credit_group = CreditGroup.objects.get(id=credit_group_id)
-    name = CreditUser.objects.get(credit_user_id).name
-    for credit_user in credit_users:
+    name = CreditUser.objects.get(id = credit_user_id).name
+    number_of_submitter = CreditUser.objects.filter(credit_group__id= credit_group_id,is_submitted=True).count()
+    for credit_user in credit_admin_users:
         to_email, from_email, = credit_user.email, FROM_EMAIL
         template = 'updated_score_admin_email'
         call_to_action = settings.FRONT_END_ROOT_URL + '/manage-group/'+credit_group.privateurl.token
         dict_context = {'name': name,
                         'call_to_action': call_to_action,
-                        'group_name': credit_group.name
+                        'group_name': credit_group.name,
+                        'number_of_submitter':number_of_submitter
                         }
         send_email(to_email, from_email, template, dict_context)
