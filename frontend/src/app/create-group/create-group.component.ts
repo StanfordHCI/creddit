@@ -52,7 +52,7 @@ export class CreateGroupComponent implements OnInit {
           console.log(data);
           this.isLoading = false;
           let token = data.token;
-          this.toastr.success('Group has been created', 'Group Created');
+          this.toastr.success('Group members should check their emails for the link.', 'Group Created');
           this.router.navigate(['/manage-group', token]);
         },
         err => {
