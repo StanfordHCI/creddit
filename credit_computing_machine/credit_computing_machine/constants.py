@@ -12,3 +12,6 @@ EMAIL_BACKEND = 'post_office.EmailBackend'
 POST_OFFICE = {
     'BATCH_SIZE': 50
 }
+
+
+TOTAL_MAX_SCORE = 100
