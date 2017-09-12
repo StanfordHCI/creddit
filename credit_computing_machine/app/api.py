@@ -5,6 +5,7 @@ from rest_framework import generics, status
 from django.contrib.auth import authenticate
 
 from app.models import CreditGroup, CreditScore, CreditUser
+from credit_computing_machine.messages import validation_email_msg
 from .serializers import CreditGroupCreateSerializer , CreditScoreSerializer, CreditUserSerializer
 from .serializers import CreditUserCreateSerializer, CreditGroupUpdateSerializer, CreditUserScoreUpdateSerializer
 from privateurl.models import PrivateUrl
@@ -51,7 +52,7 @@ class CreditGroupCreateApi(generics.CreateAPIView):
                         credit_admin_users = credit_admin_user_serializer_data.save()
                         credit_users = credit_user_serializer_data.save()
                     except IntegrityError as e:
-                        raise CustomAPIException({'email': 'Two users cannot have same email within same group'})
+                        raise CustomAPIException({'email': validation_email_msg})
 
                     user_ids = [i.id for i in credit_users]
                     for index, user_id in enumerate(user_ids):

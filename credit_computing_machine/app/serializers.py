@@ -1,8 +1,11 @@
 from rest_framework import serializers
+
+from credit_computing_machine.messages import validation_score_msg
 from .models import CreditGroup
 from .models import CreditUser
 from .models import CreditScore
 from .utility import Utility
+from credit_computing_machine.drf_custom_exceptions import CustomAPIException
 
 class CreditGroupCreateSerializer(serializers.ModelSerializer):
     '''
@@ -140,5 +143,15 @@ class CreditUserScoreUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         credit_scores = validated_data.pop('from_credit_user')
         credit_score_serializer_data = CreditScoreSerializer(data=credit_scores, many=True)
+        self.validate_scores(credit_scores)
         result = Utility.save_and_update_data(CreditScoreUpdateSerializer,credit_scores,CreditScore,['from_credit_user','to_credit_user', 'credit_group'])
         return instance
+
+    def validate_scores(self,credit_scores):
+        score = 0
+        TOTAL_MAX_SCORE = 100
+        for credit_score in credit_scores:
+            score = score + credit_score.get('score',0)
+
+        if (score > TOTAL_MAX_SCORE):
+            raise CustomAPIException({'scores': validation_score_msg})
