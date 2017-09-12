@@ -33,7 +33,7 @@ class CreditUserCreateSerializer(serializers.ModelSerializer):
 
 class CreditUserSerializer(serializers.ModelSerializer):
     '''
-    Serializer for CreditUser Create.
+    Serializer for CreditUser.
     '''
 
     class Meta:
@@ -46,7 +46,7 @@ class CreditUserSerializer(serializers.ModelSerializer):
 
 class CreditGroupSerializer(serializers.ModelSerializer):
     '''
-    Serializer for CreditGroup Create.
+    Serializer for CreditGroup.
     '''
     credit_users = CreditUserSerializer(many=True)
 
@@ -97,7 +97,7 @@ class CreditUserUpdateSerializer(serializers.ModelSerializer):
         Serializer customization
         '''
         model = CreditUser
-        fields = ('name','email','score','is_admin')
+        fields = ('name','email','score','is_admin','is_submitted')
         read_only_fields = ('is_admin',)
 
 class CreditGroupUpdateSerializer(serializers.ModelSerializer):

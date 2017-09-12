@@ -21,6 +21,13 @@ class CreditGroupCreateApi(generics.CreateAPIView):
 
     @transaction.atomic
     def create(self, request, *args, **kwargs):
+        """
+        Create the group
+        :param request:
+        :param args:
+        :param kwargs:
+        :return: response
+        """
         response = {}
         request_data = copy.deepcopy(request.data)
 
@@ -77,11 +84,18 @@ class CreditGroupRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
             raise CustomAPIException('Not a vaild page')
 
     def retrieve(self, request, *args, **kwargs):
+        """
+        To retrive the Group details via token in kwargs
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         result = serializer.data
         credit_users = result.get('credit_users')
-        credit_users = [credit_user for credit_user in credit_users if not credit_user.get('is_admin')] 
+        credit_users = [credit_user for credit_user in credit_users if not credit_user.get('is_admin')]
         if credit_users:
             credit_group = self.get_object()
             dict_scores = CreditGroup.objects.get_dict_scores(credit_group.id)
@@ -89,6 +103,9 @@ class CreditGroupRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
 
             for credit_user in credit_users:
                 email = credit_user.get('email')
+                if not credit_user.get('is_submitted'):
+                    credit_user['score'] = 0
+                    continue
                 if  email and compute_result.get(email):
                     credit_user['score'] = compute_result.get(email)    
         result['credit_users'] = credit_users
@@ -104,6 +121,13 @@ class CreditUserScoresRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
             raise CustomAPIException('Not a vaild page')
 
     def put(self, request, *args, **kwargs):
+        """
+        Edit and assign the score to creddit users
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
         updated_result = self.update(request, *args, **kwargs)
         instance = self.get_object()
         instance.is_submitted = True
@@ -112,6 +136,13 @@ class CreditUserScoresRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
         return updated_result
 
     def retrieve(self, request, *args, **kwargs):
+        """
+        Only retrive the scores of different creddit users in the group
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         result = serializer.data
