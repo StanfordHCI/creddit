@@ -157,3 +157,9 @@ class CreditUserScoresRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
             result['admin_user'] = CreditUserSerializer(credit_admin_users[0]).data
 
         return Response(result)
+
+
+class CreditGroupCount(generics.ListAPIView):
+    def get(self, request, *args, **kwargs):
+        number_of_groups = CreditGroup.objects.all().count()
+        return Response({'number_of_groups':number_of_groups})
