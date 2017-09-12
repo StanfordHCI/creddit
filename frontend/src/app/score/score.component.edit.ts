@@ -15,12 +15,14 @@ export class ScoreEditComponent implements OnInit {
   private totalCount: number;
   // trigger-variable for Ladda
   isLoading = false;
+  private pointsDistributed: number;
   constructor(
     private groupService: GroupService,
     private router: Router,
     private toastr: ToastrService,
     private route: ActivatedRoute
   ) {
+    this.pointsDistributed = 0;
   }
 
 
@@ -34,11 +36,18 @@ export class ScoreEditComponent implements OnInit {
   }
 
   addpoints(creditScore) {
-    creditScore.score = creditScore.score + 1;
+    if(this.pointsDistributed <= 100) {
+      creditScore.score = creditScore.score + 1;
+      this.pointsDistributed++;
+    }
   }
 
   subpoints(creditScore) {
-    creditScore.score = creditScore.score - 1;
+    if(creditScore.score > 0)
+    {
+      creditScore.score = creditScore.score - 1;
+      this.pointsDistributed--;
+    }
   }
 
   postScore() {
@@ -63,7 +72,10 @@ export class ScoreEditComponent implements OnInit {
     this.groupService.getGroupDetailsForScore(this.token)
       .subscribe(data => {
         this.groupData = data;
-        console.log(this.groupData)
+        for(let user of data.from_credit_user) {
+          let score = parseInt(user.score);
+          this.pointsDistributed += score;
+        }
       }, err => {
         this.router.navigate(['/']);
         console.log(err)

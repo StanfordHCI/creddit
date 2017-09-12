@@ -41,3 +41,22 @@ button[disabled] {
   color: #27a0bf;
 }
 
+.longpress,.press {
+  color:#27a0bf !important;
+}
+
+.btn-up-down{
+  padding: 0px;
+  color: #828282;
+  vertical-align: middle;
+  background: transparent;
+  font-size: 20px;
+}
+.btn-up-down:active {
+  outline: none;
+}
+
+
+.input-full-width{
+  width:100% !important;
+}

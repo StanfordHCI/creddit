@@ -380,7 +380,16 @@ input { color: #818181 !important;}
 	text-decoration:none;
 }
 
+/* hide up/down arrows ("spinners") on input fields marked type="number" */
+.no-spinners {
+  -moz-appearance:textfield;
+}
 
+.no-spinners::-webkit-outer-spin-button,
+.no-spinners::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 
 

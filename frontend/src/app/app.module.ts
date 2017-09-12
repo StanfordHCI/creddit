@@ -20,6 +20,9 @@ import { LaddaModule } from 'angular2-ladda';
 import { ToastrModule } from 'ngx-toastr';
 import { ClipModule } from 'ng2-clip'
 
+import { LongPressDirective } from './app.directive';
+
+
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
 @NgModule({
@@ -45,7 +48,8 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     GroupDetailsAdminComponent,
     GroupEditAdminComponent,
     ScoreEditComponent,
-    ScoreDetailComponent
+    ScoreDetailComponent,
+    LongPressDirective
   ],
   providers: [
     ApiService,

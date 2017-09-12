@@ -47,16 +47,28 @@
             {{creditUser.to_credit_user_name}}
           </h2>
         </div>
-        <div class="col-md-4 pdr0 text-center   ">
-          <div class="" role="group" aria-label="...">
-            <button [disabled] = "creditUser.score == 0" (click)="subpoints(creditUser)" type="button" class="btn btn-default btn-effet-n font-size-40">
-              <i class="fa fa-minus-circle"></i>
-            </button>
-            <input readonly [(ngModel)]="creditUser.score" #name="ngModel"
-                   name="name-{{i}}" type="number" class="input-width">
-            <button (click)="addpoints(creditUser)" type="button" class="btn btn-default btn-effet-n font-size-40">
-              <i class="fa fa-plus-circle"></i>
-            </button>
+        <div class="col-md-4 pdr0 text-center">
+          <div class="col-md-12">
+            <div class="col-md-4">
+              <button (click)="subpoints(creditUser)"  type="button" class="btn btn-up-down" long-press (onLongPressing)="subpoints(creditUser)">
+                <span class="fa-stack fa-sm over-stack-font">
+                  <i class="fa fa-circle-thin font-circle-sign fa-stack-2x"></i>
+                  <i class="fa fa-minus fa-stack-1x minus-sign"></i>
+                </span>
+              </button>
+            </div>
+            <div class="col-md-4">
+              <input readonly [(ngModel)]="creditUser.score" #name="ngModel"
+                     name="name-{{i}}" type="number" class="no-spinners input-width input-full-width">
+            </div>
+            <div class="col-md-4">
+              <button (click)="addpoints(creditUser)" type="button" class="btn btn-up-down" long-press (onLongPressing)="addpoints(creditUser)">
+                <span class="fa-stack fa-sm">
+                  <i class="fa fa-circle-thin fa-stack-2x"></i>
+                  <i class="fa fa-plus fa-stack-1x"></i>
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

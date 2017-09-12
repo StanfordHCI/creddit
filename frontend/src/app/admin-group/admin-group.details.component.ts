@@ -15,6 +15,7 @@ export class GroupDetailsAdminComponent implements OnInit {
   private groupData: any = '';
   private messageToShow = '';
   private pathToCopy: string;
+  private countSubmissions: number;
   constructor(
     private groupService: GroupService,
     private router:Router,
@@ -22,6 +23,7 @@ export class GroupDetailsAdminComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.pathToCopy = window.location.href;
+    this.countSubmissions = 0;
   }
 
   getInitials(name) {
@@ -46,17 +48,28 @@ export class GroupDetailsAdminComponent implements OnInit {
         console.log(data)
       }
     );
-    this.messageToShow = 'Typical credit assignment is centralized: it relies on a ' +
-      'single supervisor or a small number of peers on the team to ' +
-      'make an assessment. For example, a lead researcher ' +
-      'often determines author order for all collaborators on a paper, and at ' +
-      'a company your supervisors determines your performance review.';
-
 
     this.token = this.route.snapshot.params['token'];
     this.groupService.getGroupDetails(this.token)
     .subscribe(data => {
       this.groupData = data;
+      if(this.groupData.credit_users) {
+        for (let user of this.groupData.credit_users) {
+          if(user.is_submitted != false) {
+            this.countSubmissions++;
+          }
+        }
+        var submissionPlaceholder = 'No';
+        if(this.countSubmissions != 0)
+        {
+          submissionPlaceholder = (this.countSubmissions).toString();
+        }
+        this.messageToShow = submissionPlaceholder + ' group members have entered their credit scores ' +
+          'yet. Tell your group members to check their email for a link to enter their ' +
+          'scores. This is a good time to open the email we sent you and use it to enter your scores! ' +
+          'You have also received an email that lets you see the results and add or remove group members.';
+      }
+      console.log(this.groupData)
       this.dataLoaded = false;
     }, err => {
       this.dataLoaded = false;
