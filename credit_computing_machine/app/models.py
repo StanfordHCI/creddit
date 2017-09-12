@@ -59,7 +59,7 @@ class CreditUser(TimestampModel):
         return '%s from %s'%(self.name,self.credit_group)
 
     class Meta:
-        unique_together = ('credit_group', 'email')
+        unique_together = ('credit_group', 'email','is_admin')
 
 @receiver(pre_save, sender=CreditUser, dispatch_uid="add_user_purl")
 def add_user_purl(sender, instance, **kwargs):
