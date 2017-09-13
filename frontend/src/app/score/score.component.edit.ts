@@ -36,7 +36,7 @@ export class ScoreEditComponent implements OnInit {
   }
 
   addpoints(creditScore) {
-    if(this.pointsDistributed <= 100) {
+    if(this.pointsDistributed < 100) {
       creditScore.score = creditScore.score + 1;
       this.pointsDistributed++;
     }

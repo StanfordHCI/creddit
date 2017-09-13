@@ -15,8 +15,8 @@
     <div class="container">
       <div class="col-md-12 add-group group" *ngIf="groupData && groupData.admin_user">
         <p>The group creator, {{groupData.admin_user.name}} , can see the results aggregated across all group members, and share them
-        when ready. If you later want to change how many points you gave each person,
-        visit the same link in your email:</p>
+          when ready. If you later want to change how many points you gave each person,
+          visit the same link in your email:</p>
         <p>
           <a href="{{pathToCopy}}" class="btn btn-primary btn-lg" style="border: 0;margin-top: 15px;">
             {{pathToCopy}}
@@ -30,11 +30,11 @@
           </div>
         </div>
         <div class="col-md-6 pdl0 personName">
-          <h1>
+          <h2>
             {{creditUser.to_credit_user_name}}
-          </h1>
+          </h2>
         </div>
-        <div class="col-md-4 pdr0">
+        <div class="col-md-4 pdr0 text-center vCenter">
           <h3>
             <span class="score">{{creditUser.score}}</span>
           </h3>

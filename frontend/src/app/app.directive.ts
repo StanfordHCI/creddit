@@ -1,81 +1,66 @@
-import {
-  Directive,
-  Input,
-  Output,
-  EventEmitter,
-  HostBinding,
-  HostListener
-} from '@angular/core';
+import { Directive, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 
-@Directive({ selector: '[long-press]' })
+/**
+ * Generated class for the LongPressDirective directive.
+ *
+ * See https://angular.io/docs/ts/latest/api/core/index/DirectiveMetadata-class.html
+ * for more info on Angular Directives.
+ */
+@Directive({
+  selector: '[long-press]'
+})
 export class LongPressDirective {
 
-  @Input() duration: number = 500;
+  private timeoutId: number = null;
+  private intervalId: number = null;
 
-  @Output() onLongPress: EventEmitter<any> = new EventEmitter();
-  @Output() onLongPressing: EventEmitter<any> = new EventEmitter();
-  @Output() onLongPressEnd: EventEmitter<any> = new EventEmitter();
+  private isLongPressing: boolean;
+  private isPressing: boolean;
 
-  private pressing: boolean;
-  private longPressing: boolean;
-  private timeout: any;
-  private mouseX: number = 0;
-  private mouseY: number = 0;
+  @Output() onLongPress = new EventEmitter();
+  @Output() onLongPressing = new EventEmitter();
+
+  @Input() timeout: number = 300;
 
   @HostBinding('class.press')
-  get press() { return this.pressing; }
+  get press() {
+    return this.isPressing;
+  }
 
-  @HostBinding('class.longpress')
-  get longPress() { return this.longPressing; }
+  @HostBinding('class.long-press')
+  get longPress() {
+    return this.isLongPressing;
+  }
 
-  @HostListener('mousedown', ['$event'])
-  onMouseDown(event) {
-    // don't do right/middle clicks
-    if(event.which !== 1) return;
+  @HostListener('touchstart', ['$event'])
+  public onMouseDown(event) {
+    this.isPressing = true;
+    this.isLongPressing = false;
 
-    this.mouseX = event.clientX;
-    this.mouseY = event.clientY;
-
-    this.pressing = true;
-    this.longPressing = false;
-
-    this.timeout = setTimeout(() => {
-      this.longPressing = true;
+    this.timeoutId = (<any> window).setTimeout(() => {
+      this.isLongPressing = true;
       this.onLongPress.emit(event);
-      this.loop(event);
-    }, this.duration);
 
-    this.loop(event);
-  }
-
-  @HostListener('mousemove', ['$event'])
-  onMouseMove(event) {
-    if(this.pressing && !this.longPressing) {
-      const xThres = (event.clientX - this.mouseX) > 10;
-      const yThres = (event.clientY - this.mouseY) > 10;
-      if(xThres || yThres) {
-        this.endPress();
-      }
-    }
-  }
-
-  loop(event) {
-    if(this.longPressing) {
-      this.timeout = setTimeout(() => {
+      this.intervalId = (<any> window).setInterval(() => {
         this.onLongPressing.emit(event);
-        this.loop(event);
-      }, 50);
-    }
+      }, 30);
+    }, this.timeout);
   }
 
-  endPress() {
-    clearTimeout(this.timeout);
-    this.longPressing = false;
-    this.pressing = false;
-    this.onLongPressEnd.emit(true);
+  @HostListener('touchend', ['$event'])
+  public onMouseLeave() {
+    this.endPress();
   }
 
-  @HostListener('mouseup')
-  onMouseUp() { this.endPress(); }
+  private endPress() {
+    if (this.timeoutId !== null)
+      clearTimeout(this.timeoutId);
+
+    if (this.intervalId !== null)
+      clearInterval(this.intervalId);
+
+    this.isLongPressing = false;
+    this.isPressing = false;
+  }
 
 }
