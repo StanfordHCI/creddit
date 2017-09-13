@@ -313,6 +313,7 @@ input { color: #818181 !important;}
     border: 1px solid #cdcdcd;
     margin: 35px 0px;
     padding: 20px 10px;
+    clear:both;
 }
 
 
@@ -599,7 +600,7 @@ span.score-no {
     cursor: not-allowed;
     background-color:transparent!important;
 }
-.inputgroup button:focus, .inputgroup button:active {outline:none; background: transparent; border: none;
+.inputgroup button:focus, .inputgroup button:active {outline:none; background: transparent;
 box-shadow:0px 0px 0px transparent!important;
 }
 .input-width {
@@ -607,19 +608,46 @@ box-shadow:0px 0px 0px transparent!important;
     text-align: center;
     height: 40px;
 }
-@media screen and (max-width:640px) {
+.vCenter {
+    position: relative;
+    top: 22px;
+}
+
+.personName h2 { margin: 0px; line-height: 80px; text-align:left;}
+.input-full-width {
+    border: 1px solid #ccc;
+}
+
+@media screen and (max-width:768px) {
 h3 { line-height: 20px;}
 .inputgroup-box {
     border: 1px solid #cdcdcd;
     margin: 35px 0px;
     padding: 20px 10px;
 }
+
+.inputgroup {
+    border: 1px solid #cdcdcd;
+    margin: 35px 0px;
+    padding: 20px 10px;
+    clear: both;
+    min-height: 176px;
+    margin-top: 57px!important;
+}
+
 .customBTN {
     width: 100%;
 
 }
 span.score-no {
     font-size: 25px;
+}
+.personName h2 { margin: 0px; line-height: 45px; text-align: center;}
+vCenter {
+    top: 10px;
+}
+.input-full-width {
+    border: 1px solid #ccc;
 }
 }
 
