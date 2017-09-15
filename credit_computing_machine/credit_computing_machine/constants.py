@@ -1,8 +1,8 @@
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'duahimanshu101@gmail.com'
-EMAIL_HOST_PASSWORD = 'clasmate'
+EMAIL_HOST_USER = 'creditcomputing@gmail.com'
+EMAIL_HOST_PASSWORD = 'Qwerty123@'
 
 
 FRONT_END_ROOT_URL = 'http://creditdemo.techbrez.com'
