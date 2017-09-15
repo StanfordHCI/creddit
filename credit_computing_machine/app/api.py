@@ -104,9 +104,9 @@ class CreditGroupRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
 
             for credit_user in credit_users:
                 email = credit_user.get('email')
-                if not credit_user.get('is_submitted'):
-                    credit_user['score'] = 0
-                    continue
+                # if not credit_user.get('is_submitted'):
+                #     credit_user['score'] = 0
+                #     continue
                 if  email and compute_result.get(email):
                     credit_user['score'] = compute_result.get(email)    
         result['credit_users'] = credit_users
