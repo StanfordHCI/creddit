@@ -1,6 +1,8 @@
+from django.db import IntegrityError
 from rest_framework import serializers
 
-from credit_computing_machine.messages import validation_score_msg
+from app import email_service
+from credit_computing_machine.messages import validation_score_msg, validation_email_msg
 from .models import CreditGroup
 from .models import CreditUser
 from .models import CreditScore
@@ -100,8 +102,9 @@ class CreditUserUpdateSerializer(serializers.ModelSerializer):
         Serializer customization
         '''
         model = CreditUser
-        fields = ('name','email','score','is_admin','is_submitted')
-        read_only_fields = ('is_admin',)
+        fields = ('name','email','score','is_admin','is_submitted','id')
+        read_only_fields = ('is_admin','id',)
+        # extra_kwargs = {'id': {'read_only': False}}
 
 class CreditGroupUpdateSerializer(serializers.ModelSerializer):
     '''
@@ -115,16 +118,6 @@ class CreditGroupUpdateSerializer(serializers.ModelSerializer):
         model = CreditGroup
         fields = ('name','credit_users')
 
-    def update(self, instance, validated_data):
-        credit_users = validated_data.pop('credit_users')
-        instance.name = validated_data['name']
-        instance.save()
-        credit_group_serializer_data = CreditUserUpdateSerializer(data=credit_users, many=True)
-        if credit_group_serializer_data.is_valid():
-            for item in credit_users:
-                item['credit_group'] = instance.id
-            result = Utility.save_and_update_data(CreditUserUpdateSerializer,credit_users,CreditUser,['email','credit_group'])
-        return instance
 
 
 class CreditUserScoreUpdateSerializer(serializers.ModelSerializer):

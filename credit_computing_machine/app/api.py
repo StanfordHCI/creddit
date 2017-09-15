@@ -84,6 +84,44 @@ class CreditGroupRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
         except CreditGroup.DoesNotExist:
             raise CustomAPIException('Not a vaild page')
 
+    def update(self, request, *args, **kwargs):
+        instance = CreditGroup.objects.get(name=request.data.get('name'))
+        credit_group = instance
+        credit_users = request.data.pop('credit_users')
+        ids = []
+        for item in credit_users:
+            if item.get('id'):
+                ids.append(int(item.get('id')))
+        CreditUser.objects.filter(is_admin=False).exclude(id__in=ids).delete()
+        only_new_credit_users = []
+        for item in credit_users:
+            if not item.get('id'):
+                item['credit_group'] = instance.id
+                only_new_credit_users.append(item)
+
+        credit_user_serializer_data = CreditUserCreateSerializer(data=only_new_credit_users, many=True)
+        if credit_user_serializer_data.is_valid():
+            try:
+                credit_users = credit_user_serializer_data.save()
+            except IntegrityError as e:
+                raise CustomAPIException({'email': validation_email_msg})
+
+            user_ids = [i.id for i in credit_users]
+            for index, user_id in enumerate(user_ids):
+                for internal_index, internal_user_id in enumerate(user_ids):
+                    if user_id != internal_user_id:
+                        CreditScore.objects.create(from_credit_user_id=user_id,
+                                                   to_credit_user_id=internal_user_id,
+                                                   credit_group=credit_group, score=0)
+
+            email_service.send_invite_email_to_all_credit_group(credit_group.id)
+
+            response = {'msg': 'Group updated', 'token': credit_group.privateurl.token}
+        else:
+            raise CustomAPIException(credit_user_serializer_data.errors)
+
+        return Response(response, status=status.HTTP_200_OK)
+
     def retrieve(self, request, *args, **kwargs):
         """
         To retrive the Group details via token in kwargs
