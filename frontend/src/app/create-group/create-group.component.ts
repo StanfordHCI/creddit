@@ -32,7 +32,8 @@ export class CreateGroupComponent implements OnInit {
   }
 
   removeUser(index) {
-    this.groupData.credit_users.splice(index, 1);
+    if(this.groupData.credit_users.length > 1)
+      this.groupData.credit_users.splice(index, 1);
   }
 
   getInitials(name) {

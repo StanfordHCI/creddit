@@ -29,8 +29,8 @@
         </div>
         <div class="col-md-4 pdr0">
           <h3>
-            Creddit Score : <span class="score-no" *ngIf="creditUser.is_submitted">{{creditUser.score | number : '1.2-2'}}</span>
-            <span style="color:#27a0bf" *ngIf="!creditUser.is_submitted">Waiting</span>
+            Creddit Score : <span class="score-no" *ngIf="isSubmitted">{{creditUser.score | number : '1.2-2'}}</span>
+            <span style="color:#27a0bf" *ngIf="!isSubmitted">Waiting</span>
           </h3>
         </div>
       </div>

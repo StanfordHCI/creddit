@@ -16,6 +16,8 @@ export class GroupDetailsAdminComponent implements OnInit {
   private messageToShow = '';
   private pathToCopy: string;
   private countSubmissions: number;
+  private isSubmitted: boolean
+
 
   intervalId;
 
@@ -43,6 +45,7 @@ export class GroupDetailsAdminComponent implements OnInit {
     this.pathToCopy = window.location.href;
     this.countSubmissions = 0;
     this.single = [];
+    this.isSubmitted = false;
   }
 
   getInitials(name) {
@@ -83,6 +86,7 @@ export class GroupDetailsAdminComponent implements OnInit {
           };
           graphArray.push(graphObj);
           if(user.is_submitted != false) {
+            this.isSubmitted = true;
             this.countSubmissions++;
           }
         }
