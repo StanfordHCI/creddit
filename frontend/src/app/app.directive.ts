@@ -33,6 +33,7 @@ export class LongPressDirective {
   }
 
   @HostListener('touchstart', ['$event'])
+  @HostListener('mousedown', ['$event'])
   public onMouseDown(event) {
     this.isPressing = true;
     this.isLongPressing = false;
@@ -46,7 +47,7 @@ export class LongPressDirective {
       }, 30);
     }, this.timeout);
   }
-
+  @HostListener('mouseup', ['$event'])
   @HostListener('touchend', ['$event'])
   public onMouseLeave() {
     this.endPress();
