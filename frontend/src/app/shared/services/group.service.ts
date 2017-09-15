@@ -49,6 +49,16 @@ export class GroupService {
 
 
   /**
+   * Retrieve the Group & its users
+   */
+  getGroupCount(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/app/api/groups/count/`)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+
+  /**
    * Handle any errors from the API
    */
   private handleError(err) {

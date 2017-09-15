@@ -16,6 +16,24 @@ export class GroupDetailsAdminComponent implements OnInit {
   private messageToShow = '';
   private pathToCopy: string;
   private countSubmissions: number;
+
+  intervalId;
+
+  single: any[];
+
+  view: any[] = [700, 400];
+  // options
+  showLegend = true;
+
+  colorScheme = {
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  };
+
+  // pie
+  showLabels = true;
+  explodeSlices = false;
+  doughnut = false;
+
   constructor(
     private groupService: GroupService,
     private router:Router,
@@ -24,6 +42,7 @@ export class GroupDetailsAdminComponent implements OnInit {
   ) {
     this.pathToCopy = window.location.href;
     this.countSubmissions = 0;
+    this.single = [];
   }
 
   getInitials(name) {
@@ -49,16 +68,26 @@ export class GroupDetailsAdminComponent implements OnInit {
       }
     );
 
+
+
     this.token = this.route.snapshot.params['token'];
     this.groupService.getGroupDetails(this.token)
     .subscribe(data => {
       this.groupData = data;
       if(this.groupData.credit_users) {
+        var graphArray = [];
         for (let user of this.groupData.credit_users) {
+          let graphObj = {
+            "name" : user.name,
+            "value" : user.score
+          };
+          graphArray.push(graphObj);
           if(user.is_submitted != false) {
             this.countSubmissions++;
           }
         }
+        this.single = [...graphArray];
+        console.log(this.single)
         var submissionPlaceholder = 'No';
         if(this.countSubmissions != 0)
         {

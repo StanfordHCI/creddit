@@ -18,7 +18,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { LaddaModule } from 'angular2-ladda';
 import { ToastrModule } from 'ngx-toastr';
-import { ClipModule } from 'ng2-clip'
+import { ClipModule } from 'ng2-clip';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 
 import { LongPressDirective } from './app.directive';
 
@@ -38,7 +40,8 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
       style: 'slide-left'
     }),
     ToastrModule.forRoot(),
-    ClipModule
+    ClipModule,
+    NgxChartsModule
   ],
   declarations: [
     AppComponent,
