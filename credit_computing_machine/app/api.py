@@ -1,5 +1,6 @@
 import copy
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 
 from rest_framework import generics, status
 from django.contrib.auth import authenticate
@@ -201,3 +202,21 @@ class CreditGroupCount(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         number_of_groups = CreditGroup.objects.all().count()
         return Response({'number_of_groups':number_of_groups})
+
+
+class CreditGroupInviteEmail(generics.ListAPIView):
+    def get(self, request, *args, **kwargs):
+        credit_user_id = int(request.query_params.get('id'))
+        try:
+            credit_user = CreditUser.objects.get(id= credit_user_id)
+        except ObjectDoesNotExist:
+            raise CustomAPIException({'email': 'User not exist'})
+        credit_group = credit_user.credit_group
+
+        credit_admin_users = CreditGroup.objects.get_credit_admin_user(credit_group.id)
+        if credit_admin_users:
+            admin_name = credit_admin_users[0].name
+        else:
+            admin_name = 'admin'
+        email_service.send_invite_email(credit_user,admin_name, credit_group)
+        return Response({'sent':'ok'})

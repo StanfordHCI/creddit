@@ -36,10 +36,18 @@ def send_invite_email_to_non_admin_credit_group(credit_group_id):
         dict_context = {'admin_name': admin_name,
                         'call_to_action': call_to_action,
                         'group_name':credit_group.name
-
                         }
         send_email(to_email, from_email, template, dict_context)
 
+def send_invite_email(credit_user,admin_name,credit_group):
+    to_email, from_email, = credit_user.email, FROM_EMAIL
+    template = 'invite_email'
+    call_to_action = settings.FRONT_END_ROOT_URL + '/scores/' + credit_user.privateurl.token
+    dict_context = {'admin_name': admin_name,
+                    'call_to_action': call_to_action,
+                    'group_name': credit_group.name
+                    }
+    send_email(to_email, from_email, template, dict_context)
 
 def send_manage_email_to_admin_credit_group(credit_group_id):
     credit_users = CreditGroup.objects.get_credit_admin_user(credit_group_id)
