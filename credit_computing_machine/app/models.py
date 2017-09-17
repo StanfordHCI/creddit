@@ -30,7 +30,7 @@ class CreditManager(models.Manager):
 
 
 class CreditGroup(TimestampModel):
-    name = models.CharField(max_length=200,unique=True)
+    name = models.CharField(max_length=200)
     is_deleted = models.BooleanField(default=False)
     privateurl = models.ForeignKey(PrivateUrl,null=True)
     objects = CreditManager()

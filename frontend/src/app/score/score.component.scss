@@ -30,7 +30,6 @@ button[disabled] {
 
 
 .detail_page h1,h3 {
-  margin-top: 0px;
   color: #828282;
   line-height: 45px;
   color:rgb(129, 129, 129);
@@ -63,3 +62,12 @@ button[disabled] {
 }
 
 
+.border-red {
+  box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px inset;
+  border-color: rgb(169, 68, 66);
+}
+
+.color-red-text {
+  font-size: 50px;
+  color: rgb(169, 68, 66);
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupService } from '../shared/services/group.service';
 import { Router, Data, ActivatedRoute} from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -13,11 +14,15 @@ export class GroupEditAdminComponent implements OnInit {
   private dataLoaded: boolean= false;
   private groupData: any = '';
   private messageToShow = '';
+  private isLoading;
   constructor(
     private groupService: GroupService,
     private router:Router,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private toastr: ToastrService
+  ) {
+    this.isLoading = false;
+  }
 
   getInitials(name) {
     if(name) {
@@ -26,6 +31,37 @@ export class GroupEditAdminComponent implements OnInit {
       return initials;
     }
     return '';
+  }
+
+  trackByFn(i) {
+    return i;
+  }
+
+  addMoreUser() {
+    console.log(this.groupData.credit_users)
+    this.groupData.credit_users.push({name: "", email : ""});
+    console.log(this.groupData.credit_users)
+  }
+
+  sendEmail(userData) {
+    if(userData.emailSending)
+      return false;
+    console.log('dasd');
+    userData.emailSending = true;
+    this.groupService.sendEmail(userData.id)
+      .subscribe(() => {
+        this.toastr.success('Email has been shared with the Group Member', 'Email Sent');
+        userData.emailSending = false;
+      }, err => {
+        userData.emailSending = true;
+        this.toastr.success(err, 'Error');
+      })
+  }
+
+  removeUser(index) {
+    if(this.groupData.credit_users.length > 1)
+      this.groupData.credit_users.splice(index, 1);
+    console.log(this.groupData.credit_users)
   }
 
   ngOnInit() {
@@ -53,6 +89,26 @@ export class GroupEditAdminComponent implements OnInit {
       this.router.navigate(['/']);
       console.log(err)
     })
+  }
+
+
+  editGroup() {
+    this.isLoading = true;
+    this.groupService.editGroup(this.token, this.groupData)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.isLoading = false;
+          let token = data.token;
+          this.toastr.success('Group members should check their emails for the link.', 'Group Updated');
+          this.router.navigate(['/manage-group', token]);
+        },
+        err => {
+          this.isLoading = false;
+          this.toastr.error(err, 'Error');
+          console.log(err);
+        }
+      );
   }
 
 }

@@ -12,19 +12,19 @@
   </div>
 </section>
 <section class="article">
-  <form #groupAddForm="ngForm" (ngSubmit)="createGroup()">
+  <form #groupAddForm="ngForm" (ngSubmit)="editGroup()">
     <div class="container">
-      <div class="col-md-12 add-group group">
+      <div class="col-md-12 group add-group">
         <p>Add group members. Once completed, they will each be emailed a private URL to enter their scores.</p>
       </div>
-      <div class="col-md-12 inputgroup" *ngFor="let creditUser of groupData.credit_users; let i = index">
+      <div class="col-md-12 inputgroup" *ngFor="let creditUser of groupData.credit_users; let i = index; trackBy : trackByFn">
         <div class="col-md-2">
-          <div class="input-circle">
-            <span class="circle-text">{{getInitials(creditUser.name)}}</span>
+          <div class="input-circle circle-text">
+            {{getInitials(creditUser.name)}}
           </div>
         </div>
         <div class="col-md-4 pdl0" [class.has-error]="name.invalid && name.touched">
-          <input required [(ngModel)]="creditUser.name" #name="ngModel"
+          <input [readonly]="creditUser.id" required [(ngModel)]="creditUser.name" #name="ngModel"
                  name="name-{{i}}" type="text" placeholder="Name" class="inputsearch form-control">
           <label class="control-label"
                  *ngIf="name.errors && name.errors.required && name.touched">
@@ -32,7 +32,7 @@
           </label>
         </div>
         <div class="col-md-4 pdr0" [class.has-error]="email.invalid && email.touched">
-          <input
+          <input [readonly]="creditUser.id"
             required [(ngModel)]="creditUser.email" #email="ngModel"
             name="email-{{i}}" email placeholder="Email" class="inputsearch form-control">
           <label class="control-label"
@@ -45,8 +45,11 @@
           </label>
         </div>
         <div class="col-md-2 delimg">
-          <a (click)="removeUser(i)">
+          <a (click)="removeUser(i)" style="margin-right: 10px;">
             <img src="../img/cancle.png">
+          </a>
+          <a (click)="sendEmail(creditUser)">
+            <i style="vertical-align: middle;" [class.fa-spin] = "creditUser.emailSending" class="fa fa-refresh fa-3x fa-fw"></i>
           </a>
         </div>
       </div>

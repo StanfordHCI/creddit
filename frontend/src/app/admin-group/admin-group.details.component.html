@@ -49,7 +49,7 @@
       </div> -->
       <div class="col-md-12 pdnone">
         <div class="col-md-6 pdl0 text-right">
-          <button disabled [routerLink]="['/edit-group', token]" class="btn btn-primary customBTN">EDIT GROUP</button>
+          <button [routerLink]="['/edit-group', token]" class="btn btn-primary customBTN">EDIT GROUP</button>
         </div>
         <div class="col-md-6 pdr0 text-left">
           <button type="button" [clip]="pathToCopy" class="btn btn-primary customBTN" (onClip)="copyTextCallback($event)">GET SHAREABLE LINK</button>

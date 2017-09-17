@@ -56,7 +56,7 @@
       <div class="col-md-12 add-group">
         <p>Add group members. Once completed, they will each be emailed a private URL to enter their scores.</p>
       </div>
-      <div class="col-md-12 inputgroup" *ngFor="let creditUser of groupData.credit_users; let i = index">
+      <div class="col-md-12 inputgroup" *ngFor="let creditUser of groupData.credit_users; let i = index; trackBy: trackByFn">
         <div class="col-md-2">
           <div class="input-circle circle-text">
             {{getInitials(creditUser.name)}}

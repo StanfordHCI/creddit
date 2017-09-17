@@ -140,6 +140,7 @@ span.f-62R {
 	color: #cacaca;
 }
 .img-box img {
+  height:95px;
 	float: left
 }
 .img-box {
@@ -284,10 +285,15 @@ span.f-62R {
     padding-bottom: 40px;
 }
 .groupname {
-    max-width: 475px;
+    //max-width: 475px;
     margin: auto;
     padding-top: 40px;
     padding-bottom: 10px;
+
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 .input {
     padding: 10px 3%;
@@ -392,10 +398,11 @@ input { color: #818181 !important;}
   margin: 0;
 }
 
-
-
-
-
+@media screen and (min-width:1024px) {
+  .groupname {
+    max-width: 475px;
+  }
+}
 
 @media screen and (max-width:768px) {
 header {

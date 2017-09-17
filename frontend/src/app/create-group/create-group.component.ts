@@ -15,7 +15,7 @@ export class CreateGroupComponent implements OnInit {
       new UserModel()
     ],
     credit_users : [
-      new UserModel()
+      new UserModel(), new UserModel()
     ]
   };
   // trigger-variable for Ladda
@@ -27,12 +27,16 @@ export class CreateGroupComponent implements OnInit {
   ) {
   }
 
+  trackByFn(i) {
+    return i;
+  }
+
   addMoreUser() {
     this.groupData.credit_users.push(new UserModel());
   }
 
   removeUser(index) {
-    if(this.groupData.credit_users.length > 1)
+    if(this.groupData.credit_users.length > 2)
       this.groupData.credit_users.splice(index, 1);
   }
 

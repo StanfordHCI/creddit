@@ -19,6 +19,25 @@ export class GroupService {
   }
 
   /**
+   * Create the Group & its users
+   */
+  editGroup(token: any, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/app/api/groups/CreditGroupRetrieveUpdateAPI/${token}`, data)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+
+  /**
+   * Create the Group & its users
+   */
+  sendEmail(id: any): Observable<any> {
+    return this.http.get(`${this.apiUrl}/app/api/groups/CreditGroupInviteEmail/?id=${id}`)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+  /**
    * Retrieve the Group & its users
    */
   getGroupDetails(token: string): Observable<any> {

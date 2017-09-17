@@ -23,6 +23,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 import { LongPressDirective } from './app.directive';
+import { OnlyNumber } from './app.numberdirective';
 
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
@@ -52,7 +53,8 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     GroupEditAdminComponent,
     ScoreEditComponent,
     ScoreDetailComponent,
-    LongPressDirective
+    LongPressDirective,
+    OnlyNumber
   ],
   providers: [
     ApiService,

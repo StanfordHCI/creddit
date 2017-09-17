@@ -19,7 +19,8 @@
         The more points you give someone, the more credit they get.</p>
       </div>
       <div class="col-md-12 add-group add-group-extra">
-        <p>You have <span class="color-blue-text">{{totalCount}}</span> points</p>
+        <p *ngIf = "formValid">You have <span class="color-blue-text">{{remainingPoints}}</span> points.</p>
+        <p *ngIf = "!formValid">You are <span class="color-red-text">{{remainingPoints}}</span> points overbudget.</p>
       </div>
       <div class="col-md-12 inputgroup" *ngIf = "groupData.self_user">
         <div class="col-md-2">
@@ -50,7 +51,7 @@
         <div class="col-md-4 pdr0 text-center vCenter">
           <div class="col-md-12">
             <div class="col-md-4 col-xs-4">
-              <button (click)="subpoints(creditUser)"  type="button" class="btn btn-up-down" long-press (onLongPressing)="subpoints(creditUser)">
+              <button (click)="subpoints(creditUser)"  type="button" class="btn btn-up-down">
                 <span class="fa-stack fa-sm over-stack-font">
                   <i class="fa fa-circle-thin font-circle-sign fa-stack-2x"></i>
                   <i class="fa fa-minus fa-stack-1x minus-sign"></i>
@@ -58,11 +59,15 @@
               </button>
             </div>
             <div class="col-md-4 col-xs-4">
-              <input readonly [(ngModel)]="creditUser.score" #name="ngModel"
-                     name="name-{{i}}" type="number" class="no-spinners input-width input-full-width">
+              <input [(ngModel)]="creditUser.score"
+                     #name="ngModel" name="name-{{i}}"
+                     type="number" OnlyNumber="true"
+                     [class.border-red] = "!formValid"
+                     (ngModelChange)="changeScoreValue()"
+                     class="no-spinners input-width input-full-width">
             </div>
             <div class="col-md-4 col-xs-4">
-              <button (click)="addpoints(creditUser)" type="button" class="btn btn-up-down" long-press (onLongPressing)="addpoints(creditUser)">
+              <button (click)="addpoints(creditUser)" type="button" class="btn btn-up-down">
                 <span class="fa-stack fa-sm">
                   <i class="fa fa-circle-thin fa-stack-2x"></i>
                   <i class="fa fa-plus fa-stack-1x"></i>
@@ -73,7 +78,7 @@
         </div>
       </div>
       <div class="col-md-12 pdnone btn-submit">
-        <button [ladda]="isLoading" type="submit" class="btn btn-primary btn-lg" style="border: 0">
+        <button [disabled]="!formValid" [ladda]="isLoading" type="submit" class="btn btn-primary btn-lg" style="border: 0">
           Submit
         </button>
       </div>

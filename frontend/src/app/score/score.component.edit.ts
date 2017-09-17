@@ -10,12 +10,13 @@ import { AppSettings } from '../app.constant';
   styleUrls: ['./score.component.scss']
 })
 export class ScoreEditComponent implements OnInit {
-  private groupData = [];
+  private groupData: any = [];
   private token: string = '';
   private totalCount: number;
-  // trigger-variable for Ladda
   isLoading = false;
+  private formValid: boolean;
   private pointsDistributed: number;
+  private remainingPoints: number;
   constructor(
     private groupService: GroupService,
     private router: Router,
@@ -23,6 +24,8 @@ export class ScoreEditComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.pointsDistributed = 0;
+    this.formValid = true;
+    this.remainingPoints = 100;
   }
 
 
@@ -35,10 +38,33 @@ export class ScoreEditComponent implements OnInit {
     return '';
   }
 
+
+  processScoresCount() {
+    this.pointsDistributed = 0;
+    for(let user of this.groupData.from_credit_user) {
+      user.score = parseInt(user.score) || 0;
+      let score = user.score;
+      this.pointsDistributed += score;
+    }
+    this.remainingPoints = Math.abs(this.totalCount - this.pointsDistributed);
+    if(this.pointsDistributed > 100) {
+      this.formValid = false;
+    } else {
+      this.formValid = true;
+    }
+    console.log(this.pointsDistributed);
+  }
+
+
+  changeScoreValue() {
+    console.log(this.groupData)
+    this.processScoresCount();
+  }
+
   addpoints(creditScore) {
     if(this.pointsDistributed < 100) {
       creditScore.score = creditScore.score + 1;
-      this.pointsDistributed++;
+      this.processScoresCount();
     }
   }
 
@@ -46,7 +72,7 @@ export class ScoreEditComponent implements OnInit {
     if(creditScore.score > 0)
     {
       creditScore.score = creditScore.score - 1;
-      this.pointsDistributed--;
+      this.processScoresCount();
     }
   }
 
