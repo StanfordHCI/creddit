@@ -2,7 +2,7 @@ from app.models import CreditGroup , CreditUser
 from post_office import mail
 from django.conf import settings
 
-FROM_EMAIL = 'abc@abc.com'
+FROM_EMAIL = 'Creddit <abc@abc.com>'
 
 
 def send_email(to_email, from_email, template, dict_context):
