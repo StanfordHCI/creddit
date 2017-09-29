@@ -16,6 +16,7 @@ export class GroupDetailsAdminComponent implements OnInit {
   private messageToShow = '';
   private pathToCopy: string;
   private countSubmissions: number;
+  private totalCount: number;
   private isSubmitted: boolean
 
 
@@ -44,6 +45,7 @@ export class GroupDetailsAdminComponent implements OnInit {
   ) {
     this.pathToCopy = window.location.href;
     this.countSubmissions = 0;
+    this.totalCount = 0;
     this.single = [];
     this.isSubmitted = false;
   }
@@ -89,16 +91,16 @@ export class GroupDetailsAdminComponent implements OnInit {
             this.isSubmitted = true;
             this.countSubmissions++;
           }
+          this.totalCount++;
         }
         this.single = [...graphArray];
-        console.log(this.single)
         var submissionPlaceholder = 'No';
         if(this.countSubmissions != 0)
         {
           submissionPlaceholder = (this.countSubmissions).toString();
         }
-        this.messageToShow = submissionPlaceholder + ' group members have entered their credit scores ' +
-          'yet. Tell your group members to check their email for a link to enter their ' +
+        this.messageToShow = submissionPlaceholder + ' out of ' + this.totalCount + ' group members have entered their credit scores.' +
+          ' Tell your group members to check their email for a link to enter their ' +
           'scores. This is a good time to open the email we sent you and use it to enter your scores! ' +
           'You have also received an email that lets you see the results and add or remove group members.';
       }

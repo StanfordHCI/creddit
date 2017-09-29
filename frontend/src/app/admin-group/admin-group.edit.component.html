@@ -48,7 +48,7 @@
           <a (click)="removeUser(i)" style="margin-right: 10px;">
             <img src="../img/cancle.png">
           </a>
-          <a (click)="sendEmail(creditUser)">
+          <a (click)="sendEmail(creditUser)" *ngIf="creditUser.id">
             <i style="vertical-align: middle;" [class.fa-spin] = "creditUser.emailSending" class="fa fa-refresh fa-3x fa-fw"></i>
           </a>
         </div>

@@ -35,8 +35,12 @@ header {
 .banner {
 	background: url(../public/img/banner.jpg) center center no-repeat;
 	//height: 635px
-  height: 500px
+  height: 200px;
 }
+.banner-home {
+  height: 500px !important;
+}
+
 .big-text {
 	font-family: Roboto, sans-serif;
 	font-weight: 600;
@@ -668,3 +672,9 @@ vCenter {
 }
 }
 
+
+@media (min-width: 1200px) {
+  .container{
+    max-width: 970px;
+  }
+}

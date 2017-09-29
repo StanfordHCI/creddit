@@ -59,7 +59,7 @@ export class GroupEditAdminComponent implements OnInit {
   }
 
   removeUser(index) {
-    if(this.groupData.credit_users.length > 1)
+    if(this.groupData.credit_users.length > 2)
       this.groupData.credit_users.splice(index, 1);
     console.log(this.groupData.credit_users)
   }
