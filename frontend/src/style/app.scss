@@ -3,6 +3,12 @@
 @import "../../node_modules/ladda/css/ladda";
 @import '../../node_modules/ngx-toastr/toastr.css';
 
+html {
+  zoom: 0.8;
+  -moz-transform: scale(0.8);
+  -moz-transform-origin: 0 0;
+}
+
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #cdcdcd;
