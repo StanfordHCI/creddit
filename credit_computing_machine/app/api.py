@@ -137,8 +137,10 @@ class CreditGroupRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
         credit_users = result.get('credit_users')
         credit_users = [credit_user for credit_user in credit_users if not credit_user.get('is_admin')]
         credit_admin_users = []
-        if credit_users:
-            credit_admin_users = CreditUser.objects.filter(credit_group= credit_users[0].credit_group,is_admin=True)
+        import pdb
+        pdb.set_trace()
+        # if credit_users:
+        #     credit_admin_users = CreditUser.objects.filter(credit_group= credit_users[0].credit_group,is_admin=True)
         if credit_users:
             credit_group = self.get_object()
             dict_scores = CreditGroup.objects.get_dict_scores(credit_group.id)
