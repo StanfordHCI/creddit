@@ -99,10 +99,8 @@ export class GroupDetailsAdminComponent implements OnInit {
         {
           submissionPlaceholder = (this.countSubmissions).toString();
         }
-        this.messageToShow = submissionPlaceholder + ' out of ' + this.totalCount + ' group members have entered their credit scores.' +
-          ' Tell your group members to check their email for a link to enter their ' +
-          'scores. This is a good time to open the email we sent you and use it to enter your scores! ' +
-          'You have also received an email that lets you see the results and add or remove group members.';
+        this.messageToShow = submissionPlaceholder + ' out of ' + this.totalCount + ' members have entered their ' +
+          'credit scores. Group members have received a private link in their email.';
       }
       console.log(this.groupData)
       this.dataLoaded = false;
