@@ -136,6 +136,10 @@ class CreditGroupRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
         result = serializer.data
         credit_users = result.get('credit_users')
         credit_users = [credit_user for credit_user in credit_users if not credit_user.get('is_admin')]
+        credit_admin_users = []
+
+        if instance:
+            credit_admin_users = CreditUser.objects.filter(credit_group= instance,is_admin=True)
         if credit_users:
             credit_group = self.get_object()
             dict_scores = CreditGroup.objects.get_dict_scores(credit_group.id)
@@ -146,8 +150,13 @@ class CreditGroupRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
                 # if not credit_user.get('is_submitted'):
                 #     credit_user['score'] = 0
                 #     continue
-                if  email and compute_result.get(email):
-                    credit_user['score'] = compute_result.get(email)    
+                if email and compute_result.get(email):
+                    credit_user['score'] = compute_result.get(email)
+                if credit_admin_users and email:
+                    if credit_admin_users[0].email == email:
+                        credit_user['is_admin'] = True
+                        credit_user['privateurl'] = credit_admin_users[0].privateurl.token
+
         result['credit_users'] = credit_users
         return Response(result)
 
