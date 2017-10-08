@@ -94,7 +94,7 @@ export class GroupDetailsAdminComponent implements OnInit {
           this.totalCount++;
         }
         this.single = [...graphArray];
-        var submissionPlaceholder = 'No';
+        var submissionPlaceholder = '0';
         if(this.countSubmissions != 0)
         {
           submissionPlaceholder = (this.countSubmissions).toString();
