@@ -15,6 +15,9 @@
     <div class="container">
       <div class="col-md-12 add-group group">
         <p>{{messageToShow}}</p>
+        <p *ngIf="isAdminLink">
+          <a [routerLink]="['/scores', isAdminLink]">Enter your scores now</a>
+        </p>
       </div>
       <div class="col-md-12 inputgroup mrg-T60 " *ngFor="let creditUser of groupData.credit_users; let i = index">
            <div class="col-sm-2 ">
