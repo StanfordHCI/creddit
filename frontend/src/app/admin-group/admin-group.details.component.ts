@@ -18,6 +18,7 @@ export class GroupDetailsAdminComponent implements OnInit {
   private countSubmissions: number;
   private totalCount: number;
   private isSubmitted: boolean
+  private isAdminLink;
 
 
   intervalId;
@@ -48,6 +49,7 @@ export class GroupDetailsAdminComponent implements OnInit {
     this.totalCount = 0;
     this.single = [];
     this.isSubmitted = false;
+    this.isAdminLink = '';
   }
 
   getInitials(name) {
@@ -82,6 +84,10 @@ export class GroupDetailsAdminComponent implements OnInit {
       if(this.groupData.credit_users) {
         var graphArray = [];
         for (let user of this.groupData.credit_users) {
+
+          if(user.is_admin == true && user.is_submitted != true) {
+            this.isAdminLink = user.privateurl;
+          }
           let graphObj = {
             "name" : user.name,
             "value" : user.score
@@ -91,6 +97,7 @@ export class GroupDetailsAdminComponent implements OnInit {
             this.isSubmitted = true;
             this.countSubmissions++;
           }
+
           this.totalCount++;
         }
         this.single = [...graphArray];
