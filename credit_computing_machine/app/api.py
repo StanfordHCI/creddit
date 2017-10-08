@@ -155,7 +155,7 @@ class CreditGroupRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
                 if credit_admin_users and email:
                     if credit_admin_users[0].email == email:
                         credit_user['is_admin'] = True
-                        credit_user['privateurl'] = credit_user.privateurl.token
+                        credit_user['privateurl'] = CreditUser.objects.filter(id=credit_user.get('id'))[0].privateurl.token
 
         result['credit_users'] = credit_users
         return Response(result)
