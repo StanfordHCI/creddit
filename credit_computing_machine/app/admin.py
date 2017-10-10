@@ -4,7 +4,8 @@ from django.contrib import admin
 from django.contrib import admin
 from django.apps import apps
 
-from app.models import CreditUser
+from app.models import CreditUser, CreditScore
+
 
 # app = apps.get_app_config('app')
 #
@@ -12,5 +13,9 @@ from app.models import CreditUser
 #     admin.site.register(model)
 
 class CreditUserAdmin(admin.ModelAdmin):
-    list_display = CreditUser._meta.get_all_field_names()
+    list_display = ('name','email','credit_group')
 admin.site.register(CreditUser, CreditUserAdmin)
+
+class CreditScoreAdmin(admin.ModelAdmin):
+    list_display = ('from_credit_user','to_credit_user','score','credit_group')
+admin.site.register(CreditScore, CreditScoreAdmin)
