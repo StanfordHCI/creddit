@@ -4,7 +4,13 @@ from django.contrib import admin
 from django.contrib import admin
 from django.apps import apps
 
-app = apps.get_app_config('app')
+from app.models import CreditUser
 
-for model_name, model in app.models.items():
-    admin.site.register(model)
+# app = apps.get_app_config('app')
+#
+# for model_name, model in app.models.items():
+#     admin.site.register(model)
+
+class CreditUserAdmin(admin.ModelAdmin):
+    list_display = CreditUser._meta.get_all_field_names()
+admin.site.register(CreditUser, CreditUserAdmin)
