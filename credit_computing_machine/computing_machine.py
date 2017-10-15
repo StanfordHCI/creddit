@@ -32,22 +32,29 @@ def normalize_dict_values(d):
     return output
 
 
-def robinhood(d, all_usernames):
-    threshold = 0.15
-    output = Counter()
-    for k, v in d.items():
-        if v > threshold:
-            excess = v - threshold
-            output[k] += threshold
-            ration_per_user = excess / float(len(all_usernames))
-            for other_username in all_usernames:
-                output[other_username] += ration_per_user
-        else:
-            output[k] += v
-    return dict(output)
+def robinhood(username, given_to_others, dict_scores):
+    distribution_list = dict()
 
+    for k, v in given_to_others.items():
+        if k == username:
+            # self-awarded credit
+            # redistribute that credit out to the people who gave you credit
+            # reference: https://stackoverflow.com/questions/21507375/how-does-pageranking-algorithm-deal-with-webpage-without-outbound-links
+            distribution_list[username] = list()
+            for k2, v2 in dict_scores.items():
+                if username in v2 and k2 != username:
+                    distribution_list[username].append(k2)
 
-overrides = {}
+    for k, v in distribution_list.items():
+        ration_per_user = given_to_others[k] / float(len(v))
+        # print("%f total, %f per person" % (given_to_others[k], ration_per_user))
+        for other_username in v:
+            if other_username in given_to_others:
+                given_to_others[other_username] += ration_per_user
+            else:
+                given_to_others[other_username] = ration_per_user
+
+    return dict(given_to_others)
 
 
 def to_weighted_edges(dict_scores, all_usernames):
@@ -56,7 +63,7 @@ def to_weighted_edges(dict_scores, all_usernames):
         username = to_user
         given_to_others = dict_scores[to_user]
         given_to_others = normalize_dict_values(given_to_others)
-        given_to_others = robinhood(given_to_others, all_usernames)
+        given_to_others = robinhood(username, given_to_others, dict_scores)
         for target_user, value_given in given_to_others.items():
             weighted_edges.append((username, target_user, value_given))
     return weighted_edges
@@ -88,4 +95,4 @@ def compute_scores(dict_scores):
         #     score))  # , 'voters=' + str(pretty_floats(sorted(voters.items()))))
         # print(' ')
         result[username] = score
-    return  result
+    return result

@@ -58,10 +58,10 @@ class CreditGroupCreateApi(generics.CreateAPIView):
                     user_ids = [i.id for i in credit_users]
                     for index, user_id in enumerate(user_ids):
                         for internal_index, internal_user_id in enumerate(user_ids):
-                            if user_id != internal_user_id:
-                                CreditScore.objects.create(from_credit_user_id=user_id,
-                                                           to_credit_user_id=internal_user_id,
-                                                           credit_group=credit_group, score=0)
+                            # if user_id != internal_user_id:
+                            CreditScore.objects.create(from_credit_user_id=user_id,
+                                                       to_credit_user_id=internal_user_id,
+                                                       credit_group=credit_group, score=0)
 
                     email_service.send_invite_email_to_all_credit_group(credit_group.id)
 
