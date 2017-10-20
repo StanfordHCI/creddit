@@ -70,13 +70,19 @@ def send_score_updated_email_to_admin_credit_group(credit_group_id,credit_user_i
     credit_group = CreditGroup.objects.get(id=credit_group_id)
     name = CreditUser.objects.get(id = credit_user_id).name
     number_of_submitter = CreditUser.objects.filter(credit_group__id= credit_group_id,is_submitted=True).count()
+    if number_of_submitter>1:
+        is_singular = False
+    else:
+        is_singular = True
     for credit_user in credit_admin_users:
         to_email, from_email, = credit_user.email, FROM_EMAIL
         template = 'updated_score_admin_email'
         call_to_action = settings.FRONT_END_ROOT_URL + '/manage-group/'+credit_group.privateurl.token
+
         dict_context = {'name': name,
                         'call_to_action': call_to_action,
                         'group_name': credit_group.name,
-                        'number_of_submitter':number_of_submitter
+                        'number_of_submitter':number_of_submitter,
+                        'has_or_have':'has' if is_singular else 'have'
                         }
         send_email(to_email, from_email, template, dict_context)
