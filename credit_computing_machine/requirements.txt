@@ -2,3 +2,4 @@ Django==1.11.4
 django-cors-headers==2.1.0
 django-post-office==3.0.3
 djangorestframework==3.6.3
+networkx==2.0
