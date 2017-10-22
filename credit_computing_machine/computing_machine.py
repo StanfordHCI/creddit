@@ -46,7 +46,10 @@ def robinhood(username, given_to_others, dict_scores):
                     distribution_list[username].append(k2)
 
     for k, v in distribution_list.items():
-        ration_per_user = given_to_others[k] / float(len(v))
+        try:
+            ration_per_user = given_to_others[k] / float(len(v))
+        except ZeroDivisionError:
+            ration_per_user = 0
         # print("%f total, %f per person" % (given_to_others[k], ration_per_user))
         for other_username in v:
             if other_username in given_to_others:
