@@ -32,7 +32,7 @@ def normalize_dict_values(d):
     return output
 
 
-def robinhood(username, given_to_others, dict_scores):
+def robinhood(username, given_to_others, dict_scores, all_usernames):
     distribution_list = dict()
 
     for k, v in given_to_others.items():
@@ -44,6 +44,10 @@ def robinhood(username, given_to_others, dict_scores):
             for k2, v2 in dict_scores.items():
                 if username in v2 and k2 != username:
                     distribution_list[username].append(k2)
+
+            # if they are the only ones who gave credit to themselves, redistribute it to everyone else in the entire network
+            if len(distribution_list[username]) == 0:
+                distribution_list[username].extend([item for item in all_usernames if item != username])
 
     for k, v in distribution_list.items():
         try:
@@ -66,7 +70,7 @@ def to_weighted_edges(dict_scores, all_usernames):
         username = to_user
         given_to_others = dict_scores[to_user]
         given_to_others = normalize_dict_values(given_to_others)
-        given_to_others = robinhood(username, given_to_others, dict_scores)
+        given_to_others = robinhood(username, given_to_others, dict_scores, all_usernames)
         for target_user, value_given in given_to_others.items():
             weighted_edges.append((username, target_user, value_given))
     return weighted_edges
