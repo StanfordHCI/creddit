@@ -106,7 +106,7 @@ export class GroupDetailsAdminComponent implements OnInit {
         {
           submissionPlaceholder = (this.countSubmissions).toString();
         }
-        let messageStr = parseInt(submissionPlaceholder) > 1 ? 'have' : 'has';
+        let messageStr = parseInt(submissionPlaceholder) == 1 ? 'has' : 'have';
 
         this.messageToShow = submissionPlaceholder + ' out of ' + this.totalCount + ' members ' + messageStr + ' entered their ' +
           'credit scores. Group members have received a private link in their email.';
