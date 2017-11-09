@@ -177,7 +177,10 @@ class CreditUserScoresRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
         :param kwargs:
         :return:
         """
-        updated_result = self.update(request, *args, **kwargs)
+        if not (request.data.get('is_declined')):
+            updated_result = self.update(request, *args, **kwargs)
+        else:
+            updated_result = Response({'detail':'declined successfull'})
         instance = self.get_object()
         instance.is_submitted = True
         instance.save()
