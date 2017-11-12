@@ -4,7 +4,7 @@
       <div class="col-sm-12l text-center pad-T150 about-banner">
         <div class="col-sm-8">
           <h1>SUCCESS</h1>
-          <p>We've saved your responses.</p>
+          <p>We've saved your response.</p>
         </div>
         <div class="col-sm-4 about-img"><img src="../img/about-icon.png" alt="about" title=""></div>
       </div>
@@ -14,10 +14,16 @@
 <section class="article detail_page">
     <div class="container">
       <div class="col-md-12 add-group group" *ngIf="groupData && groupData.admin_user">
-        <p>The group creator, {{groupData.admin_user.name}} , can see the results aggregated across all group members, and share them
+        <p *ngIf = "isDecline">You have declined to submit credit. It will appear to
+          other members of the group as if you submitted credit scores, but
+          our system will privately note that you declined to do so
+          and will only consider other group members' scores in its
+          calculations. <a [routerLink]="['/scores', token]">Click here</a> if you change your mind and
+          would like to enter scores.</p>
+        <p *ngIf = "!isDecline">The group creator, {{groupData.admin_user.name}} , can see the results aggregated across all group members, and share them
           when ready. If you later want to change how many points you gave each person,
           visit the same link in your email:</p>
-        <p>
+        <p style="text-align: center;">
           <a href="{{pathToCopy}}" class="btn btn-primary btn-lg" style="border: 0;margin-top: 15px;max-width: 95%;white-space: normal !important;word-wrap: break-word;">
             {{pathToCopy}}
           </a>

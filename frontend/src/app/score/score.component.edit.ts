@@ -14,6 +14,7 @@ export class ScoreEditComponent implements OnInit {
   private token: string = '';
   private totalCount: number;
   isLoading = false;
+  isLoadingDecline = false;
   private formValid: boolean;
   private pointsDistributed: number;
   private remainingPoints: number;
@@ -87,6 +88,24 @@ export class ScoreEditComponent implements OnInit {
         },
         err => {
           this.isLoading = false;
+          this.toastr.error(err, 'Error');
+          console.log(err);
+        }
+      );
+  }
+
+  declineScore() {
+    this.isLoadingDecline = true;
+    this.groupData['is_declined'] = true;
+    this.groupService.postGroupDetailsForScore(this.token, this.groupData)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.isLoadingDecline = false;
+          this.router.navigate(['/scores', this.token, 'success'], { queryParams: { dec: true}});
+        },
+        err => {
+          this.isLoadingDecline = false;
           this.toastr.error(err, 'Error');
           console.log(err);
         }

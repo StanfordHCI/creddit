@@ -13,6 +13,8 @@ export class ScoreDetailComponent implements OnInit {
   // trigger-variable for Ladda
   isLoading = false;
   private pathToCopy: string;
+  isDecline = false;
+  sub: any;
   constructor(
     private groupService: GroupService,
     private router: Router,
@@ -32,8 +34,17 @@ export class ScoreDetailComponent implements OnInit {
     return '';
   }
 
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
   ngOnInit() {
     this.token = this.route.snapshot.params['token'];
+    this.sub = this.route.queryParams.subscribe(params => {
+       this.isDecline = params['dec'] || true;
+       console.log(this.isDecline)
+    });
     this.groupService.getGroupDetailsForScore(this.token)
       .subscribe(data => {
         this.groupData = data;
