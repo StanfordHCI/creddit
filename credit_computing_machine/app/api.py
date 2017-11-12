@@ -183,6 +183,7 @@ class CreditUserScoresRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
             updated_result = Response({'detail':'declined successfull'})
         instance = self.get_object()
         instance.is_submitted = True
+        instance.is_declined = bool (request.data.get('is_declined'))
         instance.save()
         email_service.send_score_updated_email_to_admin_credit_group(instance.credit_group.id, instance.id)
         return updated_result

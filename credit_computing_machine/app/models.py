@@ -17,7 +17,7 @@ class CreditManager(models.Manager):
         return CreditUser.objects.filter(credit_group=credit_group_id, is_admin=False)
 
     def get_dict_scores(self,credit_group_id):
-        users = CreditGroup.objects.get_credit_non_admin_user(credit_group_id).filter(is_diclined=False)
+        users = CreditGroup.objects.get_credit_non_admin_user(credit_group_id).filter(is_declined=False)
         credit_scores = CreditScore.objects.filter(credit_group_id=credit_group_id)
         dict_scores = {}
         for user in users:
@@ -52,7 +52,7 @@ class CreditUser(TimestampModel):
     is_admin = models.BooleanField(default=False)
     privateurl = models.ForeignKey(PrivateUrl, null=True)
     is_submitted = models.BooleanField(default=False)
-    is_diclined = models.BooleanField(default=False)
+    is_declined = models.BooleanField(default=False)
     objects = CreditManager()
 
 
