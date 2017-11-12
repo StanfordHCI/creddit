@@ -42,7 +42,7 @@ export class ScoreDetailComponent implements OnInit {
   ngOnInit() {
     this.token = this.route.snapshot.params['token'];
     this.sub = this.route.queryParams.subscribe(params => {
-       this.isDecline = params['dec'] || true;
+       this.isDecline = params['dec'] || false;
        console.log(this.isDecline)
     });
     this.groupService.getGroupDetailsForScore(this.token)
