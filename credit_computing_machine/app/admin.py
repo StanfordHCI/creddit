@@ -13,7 +13,7 @@ from app.models import CreditUser, CreditScore
 #     admin.site.register(model)
 
 class CreditUserAdmin(admin.ModelAdmin):
-    list_display = ('name','email','credit_group')
+    list_display = ('name','email','credit_group','is_submitted','is_declined','privateurl')
 admin.site.register(CreditUser, CreditUserAdmin)
 
 class CreditScoreAdmin(admin.ModelAdmin):
