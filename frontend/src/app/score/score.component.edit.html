@@ -19,7 +19,7 @@
         The more points you give someone, the more credit they get.</p>
       </div>
       <div class="col-md-12 add-group add-group-extra">
-        <p *ngIf = "formValid">You have <span class="color-blue-text">{{remainingPoints}}</span> points.</p>
+        <p *ngIf = "formValid">You have <span class="color-blue-text">{{remainingPoints}}</span> points left.</p>
         <p *ngIf = "!formValid">You are <span class="color-red-text">{{remainingPoints}}</span> points overbudget.</p>
       </div>
       <div class="col-md-12 inputgroup" *ngFor="let creditUser of groupData.from_credit_user; let i = index">
