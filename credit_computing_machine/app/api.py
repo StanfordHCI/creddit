@@ -93,7 +93,8 @@ class CreditGroupRetrieveUpdateAPI(generics.RetrieveUpdateAPIView):
         for item in credit_users:
             if item.get('id'):
                 ids.append(int(item.get('id')))
-        CreditUser.objects.filter(is_admin=False).exclude(id__in=ids).delete()
+        CreditUser.objects.filter(is_admin=False,
+                                  credit_group= credit_group).exclude(id__in=ids).delete()
         only_new_credit_users = []
         for item in credit_users:
             if not item.get('id'):
